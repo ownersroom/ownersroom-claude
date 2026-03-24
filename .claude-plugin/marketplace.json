@@ -1,11 +1,14 @@
 {
   "name": "ownersroom",
   "description": "OwnersRoom plugins for Claude Code",
+  "owner": {
+    "name": "OwnersRoom"
+  },
   "plugins": [
     {
       "name": "ortool",
       "description": "Cap table, options, and portfolio analysis tools for OwnersRoom",
-      "source": "."
+      "source": "./plugins/ortool"
     }
   ]
 }
