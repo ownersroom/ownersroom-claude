@@ -11,7 +11,7 @@ Access OwnersRoom cap table, options, and portfolio data from Claude Code.
 claude plugin marketplace add ownersroom/ownersroom-claude
 
 # Install the plugin
-claude plugin install ortool@ownersroom
+claude plugin install ownersroom@ownersroom
 ```
 
 Claude Code will prompt you to log in with your OwnersRoom account on first use.
@@ -27,7 +27,7 @@ The plugin connects to the OwnersRoom API and gives Claude access to your data:
 - **Options** — pools, grants, holders, vesting schedules
 - **Portfolio** — summary, per-company performance, holdings, transaction history
 
-See [CONNECTORS.md](CONNECTORS.md) for the full tool reference.
+See [CONNECTORS.md](plugins/ownersroom/CONNECTORS.md) for the full tool reference.
 
 ### Skills
 
@@ -43,8 +43,8 @@ Skills activate automatically when Claude detects a relevant question — just a
 
 | Command | Description |
 |---------|-------------|
-| `/ortool:ownership-report` | Shareholder ownership report for a company |
-| `/ortool:portfolio-report` | Portfolio overview with performance metrics |
+| `/ownersroom:ownership-report` | Shareholder ownership report for a company |
+| `/ownersroom:portfolio-report` | Portfolio overview with performance metrics |
 
 ## Examples
 
@@ -52,8 +52,8 @@ Skills activate automatically when Claude detects a relevant question — just a
 > What companies do I have access to?
 > Show me the ownership breakdown for Acme Corp
 > What's my portfolio performance?
-> /ortool:ownership-report
-> /ortool:portfolio-report
+> /ownersroom:ownership-report
+> /ownersroom:portfolio-report
 > Show me the vesting schedule for my options in Acme Corp
 ```
 

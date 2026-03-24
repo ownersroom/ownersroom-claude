@@ -6,9 +6,9 @@
   },
   "plugins": [
     {
-      "name": "ortool",
+      "name": "ownersroom",
       "description": "Cap table, options, and portfolio analysis tools for OwnersRoom",
-      "source": "./plugins/ortool"
+      "source": "./plugins/ownersroom"
     }
   ]
 }
