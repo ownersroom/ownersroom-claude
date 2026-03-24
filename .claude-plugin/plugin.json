@@ -1,0 +1,15 @@
+{
+  "name": "ortool",
+  "version": "1.0.0",
+  "description": "Access OwnersRoom cap table, options, and portfolio data from Claude Code. Analyze ownership, vesting schedules, and investment performance.",
+  "author": {
+    "name": "OwnersRoom",
+    "url": "https://www.ownersroom.com"
+  },
+  "repository": "https://github.com/ownersroom/ownersroom-claude",
+  "license": "Apache-2.0",
+  "keywords": ["cap-table", "options", "vesting", "portfolio", "equity", "ownership"],
+  "skills": "./skills/",
+  "commands": ["./commands/"],
+  "mcpServers": "./.mcp.json"
+}
