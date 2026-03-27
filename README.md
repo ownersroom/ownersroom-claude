@@ -6,13 +6,30 @@ Access OwnersRoom cap table, options, and portfolio data from Claude Code.
 
 ## Install
 
-```bash
+### Claude Code (CLI)
+
+In Claude Code, run:
+
+```
 # Add the OwnersRoom marketplace
-claude plugin marketplace add ownersroom/ownersroom-claude
+/plugin marketplace add ownersroom/ownersroom-claude
 
 # Install the plugin
-claude plugin install ownersroom@ownersroom
+/plugin install ownersroom@ownersroom
 ```
+
+You can also browse and install via the interactive `/plugin` menu under the **Discover** tab.
+
+### Cowork (Desktop App)
+
+1. Open the Claude Desktop app and switch to the **Cowork** tab.
+2. Click **Customize** in the left sidebar.
+3. Click **Browse plugins** to open the plugin browser.
+4. Find the OwnersRoom plugin and click **Install**.
+
+If the plugin isn't listed in the browser, you can upload it as a custom plugin file instead.
+
+---
 
 Claude Code will prompt you to log in with your OwnersRoom account on first use.
 
