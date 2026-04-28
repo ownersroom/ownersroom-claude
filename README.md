@@ -43,6 +43,7 @@ The plugin connects to the OwnersRoom API and gives Claude access to your data:
 - **Cap table** — share classes, shareholders, ownership percentages
 - **Options** — pools, grants, holders, vesting schedules
 - **Portfolio** — summary, per-company performance, holdings, transaction history
+- **News posts** — read, draft, edit, preview, and publish room updates
 
 See [CONNECTORS.md](plugins/ownersroom/CONNECTORS.md) for the full tool reference.
 
@@ -55,6 +56,7 @@ Skills activate automatically when Claude detects a relevant question — just a
 | **captable-analysis** | Ownership, shareholders, share classes, dilution, cap table |
 | **options-expertise** | Options, vesting, grants, strike price, exercise cost |
 | **portfolio-intelligence** | Portfolio, investments, returns, MOIC, holdings |
+| **news-updates** | News posts, room updates, investor letters, drafting / publishing announcements |
 
 ### Commands
 
@@ -72,6 +74,8 @@ Skills activate automatically when Claude detects a relevant question — just a
 > /ownersroom:ownership-report
 > /ownersroom:portfolio-report
 > Show me the vesting schedule for my options in Acme Corp
+> List the most recent news posts in Acme Corp
+> Draft a Q1 investor update for Acme Corp and let me preview it before publishing
 ```
 
 ## Requirements

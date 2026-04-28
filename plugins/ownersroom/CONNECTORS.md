@@ -10,6 +10,8 @@ The server supports Dynamic Client Registration, so OAuth configuration is disco
 
 ## Available Tools
 
+### Read
+
 | Tool | Parameters | Description |
 |------|-----------|-------------|
 | `get_current_user` | — | Current authenticated user profile |
@@ -25,3 +27,17 @@ The server supports Dynamic Client Registration, so OAuth configuration is disco
 | `list_portfolio_holdings` | — | Share holdings across companies |
 | `list_portfolio_events` | `roomId`, optional `after` | Paginated transaction history |
 | `get_portfolio_vesting` | `caseIdentifier`, optional `poolId` | Option vesting for a portfolio case |
+| `list_posts` | `roomId`, optional `after`, `categories` | News post summaries (paginated) |
+| `get_post` | `roomId`, `postId` | Single news post with full body |
+
+### Write — News posts
+
+| Tool | Parameters | Description |
+|------|-----------|-------------|
+| `create_post` | `roomId`, `params` (PostInput) | Create a draft news post |
+| `update_post` | `roomId`, `postId`, `params` | Update an existing post |
+| `publish_post` | `roomId`, `postId` | Publish a draft (visible to room members; may send email) |
+| `delete_post` | `roomId`, `postId` | Delete a post (destructive) |
+| `preview_post_email` | `roomId`, optional `postId` or `params` | Send a preview email to the authenticated user |
+
+File attachments are not supported in `params` (the GraphQL `Upload!` scalar can't go through MCP transport). Attach files via the OwnersRoom web UI.
