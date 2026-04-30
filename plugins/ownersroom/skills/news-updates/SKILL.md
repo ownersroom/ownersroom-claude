@@ -69,6 +69,12 @@ These operations have external, hard-to-undo effects. Confirm with the user befo
 - **`preview_post_email`** — sends a real email to the authenticated user. Lower stakes than `publish_post` (only the user receives it), but it's still a real email.
 - **`delete_post`** — destructive. Removes the post; cannot be recovered.
 
+## Permissions
+
+All five post writes (`create_post`, `update_post`, `publish_post`, `delete_post`, `preview_post_email`) require `updates.createPost` on the room. Calls return a structured `action_not_allowed` envelope with `module: "updates"` and `action: "createPost"` if the user lacks it — use `get_room_capabilities(roomId)` (or the `capabilities` matrix on `list_rooms`) to check before drafting work the user can't actually publish.
+
+Reads (`list_posts`, `get_post`) only require the `updates` module to be `Available`; they fail with `module_not_available` otherwise.
+
 ## Common Workflows
 
 ### Drafting an investor update
