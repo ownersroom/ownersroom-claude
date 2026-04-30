@@ -37,15 +37,18 @@ Claude Code will prompt you to log in with your OwnersRoom account on first use.
 
 ### MCP Tools
 
-The plugin connects to the OwnersRoom API and gives Claude access to your data:
+The plugin connects to the OwnersRoom API and gives Claude access to your data — both reads and writes.
 
-- **Companies** — list rooms you have access to
-- **Cap table** — share classes, shareholders, ownership percentages
-- **Options** — pools, grants, holders, vesting schedules
-- **Portfolio** — summary, per-company performance, holdings, transaction history
+- **Companies** — list rooms you have access to, with per-room capability matrix so Claude can plan around what you're allowed to do
+- **Cap table** — read share classes, shareholders, ownership; create / update / delete share classes, share issuances, share transactions, capital events
+- **Options** — read pools, grants, holders, vesting schedules; create / update / delete pools and grants; cancel and exercise grants
+- **Portfolio** — read summary, per-company performance, holdings, transaction history; create / update / delete portfolio cases and assets; update estimated values
 - **News posts** — read, draft, edit, preview, and publish room updates
+- **User profile** — read and update your own profile
 
-See [CONNECTORS.md](plugins/ownersroom/CONNECTORS.md) for the full tool reference.
+Writes that touch a room respect your per-room permissions automatically — Claude is told exactly which permission is missing if a write isn't allowed, so you can request access (or pick a different room) instead of seeing a cryptic failure.
+
+See [CONNECTORS.md](plugins/ownersroom/CONNECTORS.md) for the full tool reference, including the structured-error envelope and the capability-planning model.
 
 ### Skills
 
@@ -76,6 +79,8 @@ Skills activate automatically when Claude detects a relevant question — just a
 > Show me the vesting schedule for my options in Acme Corp
 > List the most recent news posts in Acme Corp
 > Draft a Q1 investor update for Acme Corp and let me preview it before publishing
+> Add a 200-share issuance to Bob in Acme Corp at 100 NOK per share, dated today
+> Update my estimated value for the Acme Corp shares to 250 NOK
 ```
 
 ## Requirements

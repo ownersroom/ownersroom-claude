@@ -57,3 +57,36 @@ When generating charts, include:
 - **Exercise cost analysis**: total cost = Σ(strikePrice × vestedCount) across all grants for an actor
 - **Pool runway**: available options vs. planned future grants
 - **Holder comparison**: table of holders ranked by total granted or vesting percentage
+
+## Modifying data
+
+Option pools, grants, cancellations, and exercises are all writable. **Every options write requires `capTable.manageOptions`** in the target room (the schema's `manageOptions` flag covers view, create, edit, cancel, and exercise). Call `get_room_capabilities(roomId)` before a write to confirm.
+
+| Tool | Use for |
+|------|---------|
+| `create_option_pool` | Create a new option pool (`OptionType`). After creation, `count` is calculated from the ledger and cannot be overridden. |
+| `update_option_pool` | Rename, resize, or change the share class / default vesting schedule on a pool |
+| `delete_option_pool` | Remove a pool. **Destructive.** Fails if the pool still has active grants — cancel grants first. |
+| `create_option_grants` | Issue one or more grants under a single capital event. All grants in the call share the registration date and event description. |
+| `update_option_grant_event` | Edit grants within an existing event. The `grants` array is the **full list** for the event: existing grants keep their `grantId`, new grants omit it, grants you remove disappear. Shared fields (`vestingStartDate`, `strikePrice`, etc.) apply to all grants in the event. |
+| `cancel_option_grant` | **Destructive.** Without `cancelAmount`, cancels all remaining options. With `cancelAmount`, partial-cancels. Set `validateUnvestedOnly: true` to refuse if the cancel would touch vested options. |
+| `exercise_option_grant` | Exercise vested options. Creates a capital event and a ledger entry. `exerciseAmount` must not exceed vested unexercised options. |
+
+### Safe write pattern
+
+Options affect compensation. Before any write:
+
+1. **Read** current state — `list_option_grants` for a person, `list_option_pools` for a pool, `get_vesting_history` for a vesting timeline.
+2. **Propose** the change with concrete numbers (counts, dates, strike prices). Distinguish vested vs unvested clearly.
+3. **Confirm** with the user. Never assume a write is approved.
+4. **Write**, then **read back** to confirm the resulting state matches expectations.
+
+Destructive operations (`cancel_option_grant`, `delete_option_pool`) are non-recoverable. For `cancel_option_grant`, prefer `validateUnvestedOnly: true` unless the user has explicitly asked to cancel vested options.
+
+### `exercise_option_grant` guidance
+
+Exercising is a real money event for the holder (they pay `strikePrice × exerciseAmount`). Always show the total exercise cost before calling. If you can compute current market value (from a recent share price), also show whether the grant is in the money.
+
+### Permission failures
+
+If a write returns `action_not_allowed`, the user does not have `capTable.manageOptions` in this room. Surface the exact requirement and offer to find a different room via `list_rooms` if relevant — don't retry.
