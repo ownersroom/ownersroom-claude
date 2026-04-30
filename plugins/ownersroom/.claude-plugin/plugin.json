@@ -1,6 +1,6 @@
 {
   "name": "ownersroom",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Access OwnersRoom cap table, options, and portfolio data from Claude Code. Analyze ownership, vesting schedules, and investment performance.",
   "author": {
     "name": "OwnersRoom",
