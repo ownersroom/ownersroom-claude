@@ -67,3 +67,37 @@ Portfolio data is designed for visualization:
 - **Realized vs unrealized**: how much has been cashed out vs. paper value
 - **Concentration risk**: what percentage of portfolio is in the top 1-2 companies
 - **Transaction audit**: use events to trace the history of purchases, grants, and exercises
+
+## Modifying data
+
+Portfolio writes operate on the user's own portfolio. Unlike room-scoped writes, **they are not gated by per-room capability flags** — the user always controls their own portfolio. No `get_room_capabilities` check needed.
+
+| Tool | Use for |
+|------|---------|
+| `create_portfolio_cases` | Create one or more portfolio cases. `cases` is an array of `CaseInput`: `{ name, identifier, country, assets[], owner }`. |
+| `update_portfolio_case` | Update a case's name / identifier / country / assets / owner |
+| `delete_portfolio_case` | Remove a case (destructive — also removes its assets) |
+| `create_portfolio_asset` | Add an asset to a case. `asset` is an `AssetInput`: `{ name, invested, realized, estimatedPrice, quantity }`. |
+| `update_portfolio_asset` | Update an asset within a case |
+| `delete_portfolio_asset` | Remove an asset from a case (destructive) |
+| `update_estimated_asset_value` | Update the user's own estimated value for an asset. Identify the asset either by `assetId` or by `holding: { actorId, shareClassId }`. `price` is `{ amount, currency }`; optional `note` records the context. |
+
+### Safe write pattern
+
+1. **Read** current state with `list_portfolio_cases` / `list_portfolio_holdings` so you can show what's there before a change.
+2. **Propose** the change with concrete numbers. For estimated values, show the previous estimate (and whether it was flagged `outdatedEstimate`).
+3. **Confirm** with the user.
+4. **Write**, then **read back** to confirm.
+
+### `update_estimated_asset_value` notes
+
+Estimated values are user-specific signals (your view of what an investment is worth) — not the company's official price. Two ways to identify which value to update:
+
+- **`assetId`** — for assets already in your portfolio (most common).
+- **`holding: { actorId, shareClassId }`** — when you want to update the value of a holding that may not yet have an explicit asset row.
+
+Always set `note` if the user provided context for the estimate (e.g., "based on Q1 trading round").
+
+## User profile
+
+`update_user` lets the authenticated user update their profile (name, email, country, address, about/description). Required fields: `firstName`, `lastName`, `email`, `country` (ISO 3166-1 alpha-2). Confirm with the user before changing email — it affects login and notifications.

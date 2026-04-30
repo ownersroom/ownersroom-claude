@@ -43,3 +43,32 @@ Note: different share classes (A, B, ordinary, preference) may have different vo
 - Format monetary values with currency symbols (e.g., NOK 1,000,000)
 - Sort shareholders by ownership descending
 - Include a total/sum row at the bottom
+
+## Modifying data
+
+The cap-table module supports writes for share classes and capital events. **All cap-table writes are gated by per-room permissions** — call `get_room_capabilities(roomId)` (or read the `capabilities` matrix from `list_rooms`) before issuing a write so you can plan around what's allowed.
+
+| Tool | Required action | Use for |
+|------|-----------------|---------|
+| `update_share_class` | `capTable.editSecurities` | Edit a share class (name, description, nominal value, currency, guiding share price) |
+| `delete_share_class` | `capTable.editSecurities` | Remove a share class. Fails if the class still has issuances or holdings. |
+| `create_share_issuance` | `capTable.createShareIssuance` | Issue new shares (typically to actors from nothing — `toActor` set, `fromActor` omitted) |
+| `update_share_issuance` | `capTable.editCapTable` | Edit an existing share-issuance capital event |
+| `create_share_transaction` | `capTable.editCapTable` | Transfer shares between existing actors (both `toActor` and `fromActor` set) |
+| `update_share_transaction` | `capTable.editCapTable` | Edit an existing share-transaction capital event |
+| `delete_capital_event` | `capTable.editCapTable` | Delete any capital event from the cap table. Removes ledger entries. |
+
+### Safe write pattern
+
+Cap-table mutations are accounting-grade. Before any write:
+
+1. **Read** the current state with `list_share_classes` / `list_shareholders` so you can quote concrete numbers back.
+2. **Propose** the change in plain English. Show the user what will change before and after — including share counts, currency, and dates.
+3. **Confirm** explicitly with the user before issuing the write. Never assume a write is approved.
+4. **Write**, then **read back** to show the actual post-change state and surface any discrepancies.
+
+Destructive variants (`delete_share_class`, `delete_capital_event`) are non-recoverable. Always confirm twice.
+
+### Permission failures
+
+If a write returns `action_not_allowed`, the user lacks the listed `module.action` flag in this room. Surface the exact permission needed so the user can request access or pick a different room — don't retry blindly.
