@@ -7,6 +7,8 @@ description: Generate a comprehensive ownership report for a company, showing sh
 
 Generate a formatted ownership report for a company.
 
+**Reading Resources:** discover the server name via `ListMcpResourcesTool` before calling `ReadMcpResourceTool`. The resource API needs the colon-form server name (`plugin:<plugin-name>:<server-name>`), not the underscore-form prefix used in MCP tool names.
+
 ## Steps
 
 1. Read the `rooms://` Resource for the list of accessible companies. Present the list and ask the user which company to analyze (unless context makes it obvious).

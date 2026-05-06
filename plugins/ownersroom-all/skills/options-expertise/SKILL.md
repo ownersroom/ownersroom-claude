@@ -11,6 +11,8 @@ If the user's intent spans rooms ("my options across companies") or the right ro
 
 When the room is already known and only one is in scope, skip the bootstrap.
 
+**Reading Resources:** discover the server name via `ListMcpResourcesTool` before calling `ReadMcpResourceTool`. The resource API needs the colon-form server name (`plugin:<plugin-name>:<server-name>`), not the underscore-form prefix used in MCP tool names.
+
 ## Fetching Data
 
 All options tools and Resources require a `roomId`. Read the `rooms://` Resource first if the room ID is unknown.

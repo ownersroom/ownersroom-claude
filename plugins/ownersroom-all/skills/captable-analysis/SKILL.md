@@ -11,6 +11,8 @@ If the user's intent spans rooms ("across my companies", "which of my rooms…")
 
 When the room is already known and only one is in scope, skip the bootstrap and start at step 1.
 
+**Reading Resources:** discover the server name via `ListMcpResourcesTool` before calling `ReadMcpResourceTool`. The resource API needs the colon-form server name (`plugin:<plugin-name>:<server-name>`), not the underscore-form prefix used in MCP tool names.
+
 ## Fetching Data
 
 Use ortool MCP tools and Resources to retrieve data. All responses are JSON.

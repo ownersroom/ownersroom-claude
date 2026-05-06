@@ -7,6 +7,8 @@ description: Generate a portfolio overview showing investment summary, per-compa
 
 Generate a comprehensive portfolio report for the current user.
 
+**Reading Resources:** discover the server name via `ListMcpResourcesTool` before calling `ReadMcpResourceTool`. The resource API needs the colon-form server name (`plugin:<plugin-name>:<server-name>`), not the underscore-form prefix used in MCP tool names.
+
 ## Steps
 
 1. Fetch headline metrics:

@@ -5,6 +5,8 @@ description: Analyze investment portfolio data from OwnersRoom — portfolio sum
 
 # Portfolio Intelligence
 
+**Reading Resources:** discover the server name via `ListMcpResourcesTool` before calling `ReadMcpResourceTool`. The resource API needs the colon-form server name (`plugin:<plugin-name>:<server-name>`), not the underscore-form prefix used in MCP tool names.
+
 ## Fetching Data
 
 Portfolio data is user-scoped (no `roomId` needed, except where noted).
