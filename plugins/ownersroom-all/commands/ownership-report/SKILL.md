@@ -9,11 +9,11 @@ Generate a formatted ownership report for a company.
 
 ## Steps
 
-1. Call `list_rooms` to list accessible companies. Present the list and ask the user which company to analyze (unless context makes it obvious).
+1. Read the `rooms://` Resource for the list of accessible companies. Present the list and ask the user which company to analyze (unless context makes it obvious).
 
 2. Once the room ID is known, fetch data in parallel:
-   - `list_share_classes(roomId)`
-   - `list_shareholders(roomId)`
+   - `room://{roomId}/share-classes` Resource
+   - `list_shareholders(roomId)` tool
 
 3. Cross-reference the data:
    - For each shareholder, match `assets.shares[].assetId` to share class `id`

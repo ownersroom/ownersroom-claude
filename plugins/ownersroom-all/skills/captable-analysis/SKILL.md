@@ -7,12 +7,12 @@ description: Analyze cap table data from OwnersRoom — ownership percentages, s
 
 ## Fetching Data
 
-Use the ortool MCP tools to retrieve data. All responses are JSON.
+Use ortool MCP tools and Resources to retrieve data. All responses are JSON.
 
-1. **Find the room** — call `list_rooms` to list companies the user has access to. Each room has an `id` (the room ID) and a `company.name`.
+1. **Find the room** — read the `rooms://` Resource for the list of accessible companies. Each entry has an `id` (the room ID) and a `company.name`. For cross-room scope plus capabilities, read `me://capabilities`.
 2. **Fetch share classes and shareholders in parallel**:
-   - `list_share_classes(roomId)` — returns share classes with `id`, `name`, `totalShares`, `nominalValue`, `currency`, `shareCapital`, `totalShareholders`
-   - `list_shareholders(roomId)` — returns shareholders with `actor.displayName`, `assets.shares[].assetId` (matches share class ID), and `assets.shares[].holding`
+   - `room://{id}/share-classes` Resource — returns share classes with `id`, `name`, `totalShares`, `nominalValue`, `currency`, `shareCapital`, `totalShareholders`
+   - `list_shareholders(roomId)` tool (paginated) — returns shareholders with `actor.displayName`, `assets.shares[].assetId` (matches share class ID), and `assets.shares[].holding`. The `room://{id}/shareholders` Resource returns the first page only.
 
 ## Calculating Ownership
 
@@ -46,7 +46,7 @@ Note: different share classes (A, B, ordinary, preference) may have different vo
 
 ## Modifying data
 
-The cap-table module supports writes for share classes and capital events. **All cap-table writes are gated by per-room permissions** — call `get_room_capabilities(roomId)` (or read the `capabilities` matrix from `list_rooms`) before issuing a write so you can plan around what's allowed.
+The cap-table module supports writes for share classes and capital events. **All cap-table writes are gated by per-room permissions** — read `room://{id}/capabilities` (or the cross-room `me://capabilities`) before issuing a write so you can plan around what's allowed.
 
 | Tool | Required action | Use for |
 |------|-----------------|---------|
@@ -62,7 +62,7 @@ The cap-table module supports writes for share classes and capital events. **All
 
 Cap-table mutations are accounting-grade. Before any write:
 
-1. **Read** the current state with `list_share_classes` / `list_shareholders` so you can quote concrete numbers back.
+1. **Read** the current state — `room://{id}/share-classes` Resource for share classes, `list_shareholders(roomId)` for shareholders — so you can quote concrete numbers back.
 2. **Propose** the change in plain English. Show the user what will change before and after — including share counts, currency, and dates.
 3. **Confirm** explicitly with the user before issuing the write. Never assume a write is approved.
 4. **Write**, then **read back** to show the actual post-change state and surface any discrepancies.

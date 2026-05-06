@@ -7,14 +7,14 @@ description: Interpret options data and vesting schedules from OwnersRoom — op
 
 ## Fetching Data
 
-All options tools require a `roomId`. Call `list_rooms` first if the room ID is unknown.
+All options tools and Resources require a `roomId`. Read the `rooms://` Resource first if the room ID is unknown.
 
-| Tool | Parameters | Returns |
-|------|-----------|---------|
-| `list_option_pools` | `roomId` | Option pools: `id`, `name`, `poolSize`, `count`, `expectedShares`, `isArchived` |
-| `list_option_grants` | `roomId`, optional `poolId`, `actorId` | Individual grants: `actor`, `optionPool`, `grantedCount`, `strikePrice`, `vestingStartDate`, `vestingEndDate`, `vestingProgress` |
-| `list_option_holders` | `roomId` | Aggregated per-person: `totalGrantedCount`, `totalVestedCount`, `totalUnvestedCount`, `totalExercisedCount`, `totalCancelledCount`, `activeOptionsCount`, `vestingPercentage` |
-| `get_vesting_history` | `roomId`, `actorId`, optional `poolId` | Vesting timeline: `totalActiveOptions`, `dataPoints[].timestamp`, `dataPoints[].vestedCount`, `dataPoints[].vestedPercentage` |
+| Source | Parameters | Returns |
+|--------|-----------|---------|
+| `room://{id}/option-pools` Resource | `id` (room ID) | Option pools: `id`, `name`, `poolSize`, `count`, `expectedShares`, `isArchived` |
+| `list_option_grants` tool | `roomId`, optional `poolId`, `actorId` | Individual grants: `actor`, `optionPool`, `grantedCount`, `strikePrice`, `vestingStartDate`, `vestingEndDate`, `vestingProgress` |
+| `list_option_holders` tool | `roomId`, optional `after` | Aggregated per-person (paginated): `totalGrantedCount`, `totalVestedCount`, `totalUnvestedCount`, `totalExercisedCount`, `totalCancelledCount`, `activeOptionsCount`, `vestingPercentage`. The `room://{id}/option-holders` Resource returns the first page only. |
+| `get_vesting_history` tool | `roomId`, `actorId`, optional `poolId` | Vesting timeline: `totalActiveOptions`, `dataPoints[].timestamp`, `dataPoints[].vestedCount`, `dataPoints[].vestedPercentage`. The `room://{id}/people/{actorId}/vesting` Resource is the no-filter alternative. |
 
 ## Key Concepts
 
@@ -60,7 +60,7 @@ When generating charts, include:
 
 ## Modifying data
 
-Option pools, grants, cancellations, and exercises are all writable. **Every options write requires `capTable.manageOptions`** in the target room (the schema's `manageOptions` flag covers view, create, edit, cancel, and exercise). Call `get_room_capabilities(roomId)` before a write to confirm.
+Option pools, grants, cancellations, and exercises are all writable. **Every options write requires `capTable.manageOptions`** in the target room (the schema's `manageOptions` flag covers view, create, edit, cancel, and exercise). Read `room://{id}/capabilities` before a write to confirm.
 
 | Tool | Use for |
 |------|---------|
@@ -76,7 +76,7 @@ Option pools, grants, cancellations, and exercises are all writable. **Every opt
 
 Options affect compensation. Before any write:
 
-1. **Read** current state — `list_option_grants` for a person, `list_option_pools` for a pool, `get_vesting_history` for a vesting timeline.
+1. **Read** current state — `list_option_grants` for a person, the `room://{id}/option-pools` Resource for a pool, `get_vesting_history` for a vesting timeline.
 2. **Propose** the change with concrete numbers (counts, dates, strike prices). Distinguish vested vs unvested clearly.
 3. **Confirm** with the user. Never assume a write is approved.
 4. **Write**, then **read back** to confirm the resulting state matches expectations.
@@ -89,4 +89,4 @@ Exercising is a real money event for the holder (they pay `strikePrice × exerci
 
 ### Permission failures
 
-If a write returns `action_not_allowed`, the user does not have `capTable.manageOptions` in this room. Surface the exact requirement and offer to find a different room via `list_rooms` if relevant — don't retry.
+If a write returns `action_not_allowed`, the user does not have `capTable.manageOptions` in this room. Surface the exact requirement and offer to find a different room via `me://capabilities` if relevant — don't retry.

@@ -2,7 +2,7 @@
 
 > **Experimental.** Internal prototype exploring AI-assisted workflows for equity data. Not a supported OwnersRoom product. Not intended for end users of OwnersRoom.
 
-A focused install for **PE / VC fund managers (GPs)** — manage LP commitments, run capital calls and distributions, configure hurdles, and communicate with LPs. ~32 tools.
+A focused install for **PE / VC fund managers (GPs)** — manage LP commitments, run capital calls and distributions, configure hurdles, and communicate with LPs. ~22 tools.
 
 ## Install
 
@@ -13,7 +13,7 @@ A focused install for **PE / VC fund managers (GPs)** — manage LP commitments,
 
 ## What you get
 
-### MCP tools (~32)
+### MCP tools (~22)
 
 - **Identity & rooms** — current user, list rooms, per-room capabilities.
 - **Cap-table reads (minimal)** — share classes, shareholders, capital events for portfolio companies you have access to.

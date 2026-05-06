@@ -10,10 +10,10 @@ Generate a comprehensive portfolio report for the current user.
 ## Steps
 
 1. Fetch headline metrics:
-   - `get_portfolio_summary`
+   - Read the `portfolio://summary` Resource
 
 2. Fetch per-company breakdown:
-   - `list_portfolio_cases`
+   - Read the `portfolio://cases` Resource
 
 3. Present the report:
 
@@ -37,6 +37,6 @@ Generate a comprehensive portfolio report for the current user.
    - Any data quality flags (outdated estimates, incomplete pricing)
 
 4. Offer drill-down options:
-   - "Would you like to see share holdings detail?" → `list_portfolio_holdings`
+   - "Would you like to see share holdings detail?" → read the `portfolio://holdings` Resource
    - "Would you like to see transaction history for a company?" → `list_portfolio_events(roomId)`
    - "Would you like to see option vesting for a company?" → `get_portfolio_vesting(caseIdentifier)`

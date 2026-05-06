@@ -12,24 +12,22 @@ The server supports Dynamic Client Registration, so OAuth configuration is disco
 
 ### Read
 
+Read-only tools cover anything that requires filtering or pagination. Reads with no arguments (or just a `roomId`) are exposed as Resources instead — see "Available Resources" below.
+
 | Tool | Parameters | Description |
 |------|-----------|-------------|
-| `get_current_user` | — | Current authenticated user profile |
-| `list_rooms` | optional `withCapabilities` (default `true`) | List accessible companies. When `withCapabilities` is true, each entry includes per-module status and supportedActions for planning. |
-| `get_room_capabilities` | `roomId` | Per-module status (`Available` / `AccessDenied` / `UpgradeRequired` / `Empty`) + supportedActions for a single room |
-| `list_share_classes` | `roomId` | Share classes with nominal value, total shares, share capital |
-| `list_shareholders` | `roomId` | Shareholders with per-class holdings |
-| `list_option_pools` | `roomId` | Option pools with size and grant counts |
-| `list_option_grants` | `roomId`, optional `poolId`, `actorId` | Individual option grants |
-| `list_option_holders` | `roomId` | Aggregated option holder data |
+| `list_shareholders` | `roomId`, optional `after` | Shareholders with per-class holdings (paginated) |
+| `list_capital_events` | `roomId`, `types[]`, optional `actorIds`, `after` | Paginated capital events filtered by type |
+| `list_option_grants` | `roomId`, optional `poolId`, `actorId` | Individual option grants with optional filtering |
+| `list_option_holders` | `roomId`, optional `after` | Aggregated option holder data (paginated) |
 | `get_vesting_history` | `roomId`, `actorId`, optional `poolId` | Vesting timeline with data points |
-| `get_portfolio_summary` | — | Portfolio invested, realized, unrealized, MOIC |
-| `list_portfolio_cases` | — | Per-company portfolio breakdown |
-| `list_portfolio_holdings` | — | Share holdings across companies |
+| `list_employee_loans` | `roomId`, optional `borrowerId`, `lenderId`, `currency`, `asOfDate`, `after` | Paginated employee loans with live interest snapshot |
+| `list_loan_repayments` | `roomId`, `loanId`, optional `after` | Paginated repayments for a loan |
+| `simulate_loan_interest` | `roomId`, `principal`, `startDate`, `endDate`, optional schedule, repayments | Compute interest accrual on a hypothetical loan |
+| `list_commitment_holders` | `roomId`, optional `after` | Per-actor commitment breakdown (paginated) |
 | `list_portfolio_events` | `roomId`, optional `after` | Paginated transaction history |
 | `get_portfolio_vesting` | `caseIdentifier`, optional `poolId` | Option vesting for a portfolio case |
 | `list_posts` | `roomId`, optional `after`, `categories` | News post summaries (paginated) |
-| `get_post` | `roomId`, `postId` | Single news post with full body |
 
 ### Write — User profile
 
@@ -162,8 +160,9 @@ Each persona profile exposes a tailored subset; the kitchen-sink (`ownersroom-al
 
 Room-scoped tools check the user's per-room access *before* issuing the request. This lets you plan without bouncing off failures.
 
-- `list_rooms` returns a `capabilities` matrix per room (set `withCapabilities: false` to skip the per-room fan-out for many-room users).
-- `get_room_capabilities(roomId)` returns the same matrix for a single room — useful when you already know which room and just want to check what is allowed before a write.
+- `me://capabilities` returns identity plus every accessible room with its capability matrix in one read — the bootstrap call for cross-room planning.
+- `room://{id}/capabilities` returns the matrix for a single room — useful when you already know which room and just want to check what is allowed before a write.
+- `rooms://` returns the bare list of accessible rooms without capability fan-out, when capability data isn't needed.
 
 A capability profile looks like:
 
@@ -194,7 +193,7 @@ When a tool can't produce data (permission denied, room not found, validation er
 ```json
 {
   "error": "action_not_allowed",
-  "hint": "The capTable.editCapTable permission is required but is not granted in this room (module status: Available). Use list_rooms or get_room_capabilities to find a room where this action is allowed.",
+  "hint": "The capTable.editCapTable permission is required but is not granted in this room (module status: Available). Read me://capabilities or room://{id}/capabilities to find a room where this action is allowed.",
   "tool": "update_share_issuance",
   "roomId": "...",
   "module": "capTable",

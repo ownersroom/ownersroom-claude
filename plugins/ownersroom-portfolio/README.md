@@ -2,7 +2,7 @@
 
 > **Experimental.** Internal prototype exploring AI-assisted workflows for equity data. Not a supported OwnersRoom product. Not intended for end users of OwnersRoom.
 
-A focused install for **investors** — track your portfolio, view holdings and vesting, read news from companies you've invested in. ~22 tools. Smaller token footprint than the full `ownersroom` plugin (~64 tools).
+A focused install for **investors** — track your portfolio, view holdings and vesting, read news from companies you've invested in. ~14 tools. Smaller token footprint than the full `ownersroom-all` plugin (~53 tools).
 
 ## Install
 
@@ -13,7 +13,7 @@ A focused install for **investors** — track your portfolio, view holdings and 
 
 ## What you get
 
-### MCP tools (~22)
+### MCP tools (~14)
 
 - **Identity & rooms** — current user, list rooms you can access, per-room capabilities.
 - **Cap-table reads** — share classes, shareholders, capital events for companies you've invested in (subject to room permissions).
