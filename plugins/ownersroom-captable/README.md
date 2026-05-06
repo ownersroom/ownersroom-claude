@@ -2,7 +2,7 @@
 
 > **Experimental.** Internal prototype exploring AI-assisted workflows for equity data. Not a supported OwnersRoom product. Not intended for end users of OwnersRoom.
 
-A focused install for **company admins** — manage your company's capital structure: share classes, share issuances, option pools, grants, vesting, employee loans, and company communications. ~36 tools.
+A focused install for **company admins** — manage your company's capital structure: share classes, share issuances, option pools, grants, vesting, employee loans, and company communications. ~38 tools.
 
 ## Install
 
@@ -13,7 +13,7 @@ A focused install for **company admins** — manage your company's capital struc
 
 ## What you get
 
-### MCP tools (~36)
+### MCP tools (~38)
 
 - **Identity & rooms** — current user, list rooms, per-room capabilities.
 - **Shares** — list classes & shareholders; create / update / delete share classes, share issuances, transactions; delete capital events.

@@ -2,7 +2,7 @@
 
 > **Experimental.** Internal prototype exploring AI-assisted workflows for equity data. Not a supported OwnersRoom product. Not intended for end users of OwnersRoom.
 
-The full OwnersRoom surface in one install: cap table, options, employee equity, portfolio, fund management, and news. **53 MCP tools + 23 read-only Resources, all skills, all slash commands.**
+The full OwnersRoom surface in one install: cap table, options, employee equity, portfolio, fund management, and news. **56 MCP tools + 23 read-only Resources, all skills, all slash commands.**
 
 ## Install
 
@@ -19,7 +19,7 @@ If you previously installed `ownersroom@ownersroom`, uninstall it and re-install
 
 ## What you get
 
-53 MCP tools across:
+56 MCP tools across:
 
 - **Identity & rooms** — current user, list rooms, per-room capabilities, update profile.
 - **Cap table** — share classes, shareholders, share issuances, transactions, capital events.
@@ -56,9 +56,9 @@ If you only need part of the surface, install one of the focused plugins instead
 
 | Plugin | Tools | For |
 |---|---:|---|
-| **ownersroom-portfolio** | ~14 | Investor / shareholder — own holdings, vesting, news |
-| **ownersroom-captable** | ~36 | Founder / CFO / cap-table admin — shares, options, employee equity, news |
+| **ownersroom-portfolio** | ~13 | Investor / shareholder — own holdings, vesting, news |
+| **ownersroom-captable** | ~38 | Founder / CFO / cap-table admin — shares, options, employee equity, news |
 | **ownersroom-commitments** | ~22 | PE / VC GP — LP commitments, capital ops, LP letters |
-| **ownersroom-all** *(this plugin)* | 53 | Everything |
+| **ownersroom-all** *(this plugin)* | 56 | Everything |
 
 **Don't install both this plugin and a focused one** — pick one. The focused plugins are subsets of this one.
