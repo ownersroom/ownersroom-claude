@@ -8,6 +8,12 @@ The MCP server is bundled with the plugin. When installed, the `ortool` MCP serv
 
 The server supports Dynamic Client Registration, so OAuth configuration is discovered automatically.
 
+### Reading Resources via the MCP client
+
+Claude Code's `ReadMcpResourceTool` expects the canonical, colon-namespaced server name — for this plugin, `plugin:ownersroom-all:ortool-all` (persona plugins: `plugin:ownersroom-portfolio:ortool-portfolio`, `plugin:ownersroom-captable:ortool-captable`, `plugin:ownersroom-commitments:ortool-commitments`).
+
+The underscore-form prefix that appears in MCP tool names (e.g., `mcp__plugin_ownersroom-all_ortool-all__list_shareholders`) is **not** accepted by the resource API. Use `ListMcpResourcesTool` to discover the correct server name; each entry's `server` field is the form to pass back into `ReadMcpResourceTool`. This is a known Claude Code wart ([anthropics/claude-code#29360](https://github.com/anthropics/claude-code/issues/29360)).
+
 ## Available Tools
 
 ### Read

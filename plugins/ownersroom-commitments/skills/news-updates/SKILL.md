@@ -7,6 +7,8 @@ description: Read, draft, edit, and publish news posts (room updates) on OwnersR
 
 OwnersRoom rooms have a news feed for company updates — investor letters, quarterly summaries, announcements. This skill covers reading existing posts and drafting / publishing new ones.
 
+**Reading Resources:** discover the server name via `ListMcpResourcesTool` before calling `ReadMcpResourceTool`. The resource API needs the colon-form server name (`plugin:<plugin-name>:<server-name>`), not the underscore-form prefix used in MCP tool names.
+
 ## Fetching Data
 
 | Source | Parameters | Returns |
