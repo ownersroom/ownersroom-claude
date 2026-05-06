@@ -1,6 +1,6 @@
 {
   "name": "ownersroom-commitments",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Fund-management OwnersRoom plugin for PE/VC GPs: manage LP commitments, capital calls, distributions, hurdles, and LP communications. Smaller tool surface than the full ownersroom plugin.",
   "author": {
     "name": "OwnersRoom",

@@ -30,9 +30,13 @@ If you previously installed `ownersroom@ownersroom`, uninstall it and re-install
 - **Portfolio** — summary, per-company breakdown, holdings, transaction history, vesting per case; create / update / delete portfolio cases and assets; update estimated values.
 - **News** — read, draft, edit, preview, publish, delete posts.
 
-Writes that touch a room respect your per-room permissions automatically.
+Writes that touch a room respect your per-room permissions automatically. Every write tool exposes a typed JSON-Schema for its parameters.
 
-See [CONNECTORS.md](CONNECTORS.md) for the full tool reference, including the structured-error envelope and the capability-planning model.
+### MCP Resources
+
+The server also exposes **22 read-only Resources** for passive context — enums (currencies, capital-event kinds, …), identity (`me://`), rooms (`rooms://`, `room://{id}`, `room://{id}/capabilities`), per-room reference data (share classes, shareholders, option pools, …), templated reads (`room://{id}/posts/{postId}`, `room://{id}/people/{actorId}/vesting`), and portfolio (`portfolio://summary`, `portfolio://holdings`, …).
+
+See [CONNECTORS.md](CONNECTORS.md) for the full tool and Resource reference, including the structured-error envelope and the capability-planning model.
 
 ### Skills
 

@@ -22,7 +22,11 @@ A focused install for **company admins** — manage your company's capital struc
 - **Interest rate schedules** — list / create / update / delete schedules used for loan accrual.
 - **News** — read, draft, edit, preview, publish, delete company posts.
 
-Writes that touch a room respect your per-room permissions automatically — Claude is told exactly which permission is missing if a write isn't allowed.
+Writes that touch a room respect your per-room permissions automatically — Claude is told exactly which permission is missing if a write isn't allowed. Every write tool exposes a typed JSON-Schema for its parameters.
+
+### MCP Resources
+
+The server also exposes **read-only Resources** for passive context: enums (currencies, post-visibilities, day-count conventions, capitalization frequencies, capital-event kinds), identity (`me://`), rooms (`rooms://`, `room://{id}`, `room://{id}/capabilities`), per-room reads (share classes, shareholders, option pools, option holders, interest-rate schedules), and templated reads (`room://{id}/posts/{postId}`, `room://{id}/people/{actorId}/vesting`).
 
 ### Skills
 

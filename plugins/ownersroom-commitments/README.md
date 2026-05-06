@@ -23,7 +23,11 @@ A focused install for **PE / VC fund managers (GPs)** — manage LP commitments,
 - **Portfolio reads** — fund's portfolio summary, cases, holdings, and transaction history (the fund's own portfolio of investments).
 - **News (full)** — read, draft, edit, preview, publish, delete LP letters and announcements.
 
-Writes that touch a room respect your per-room permissions automatically — Claude is told exactly which permission is missing if a write isn't allowed.
+Writes that touch a room respect your per-room permissions automatically — Claude is told exactly which permission is missing if a write isn't allowed. Every write tool exposes a typed JSON-Schema for its parameters.
+
+### MCP Resources
+
+The server also exposes **read-only Resources** for passive context: enums (currencies, post-visibilities, day-count conventions, capitalization frequencies, capital-event kinds), identity (`me://`), rooms (`rooms://`, `room://{id}`, `room://{id}/capabilities`), per-room reads (share classes, shareholders, interest-rate schedules, fund, commitment holders), and templated reads (`room://{id}/posts/{postId}`).
 
 ### Skills
 
