@@ -1,0 +1,45 @@
+# OwnersRoom Commitments for Claude Code
+
+> **Experimental.** Internal prototype exploring AI-assisted workflows for equity data. Not a supported OwnersRoom product. Not intended for end users of OwnersRoom.
+
+A focused install for **PE / VC fund managers (GPs)** — manage LP commitments, run capital calls and distributions, configure hurdles, and communicate with LPs. ~32 tools.
+
+## Install
+
+```
+/plugin marketplace add ownersroom/ownersroom-claude
+/plugin install ownersroom-commitments@ownersroom
+```
+
+## What you get
+
+### MCP tools (~32)
+
+- **Identity & rooms** — current user, list rooms, per-room capabilities.
+- **Cap-table reads (minimal)** — share classes, shareholders, capital events for portfolio companies you have access to.
+- **Fund operations** — get fund, list LP commitment holders.
+- **Commitment events** — create commitment closes, transfers; create capital calls, distributions, equalizations; update equalizations; delete capital events.
+- **Interest rate schedules** — list / create / update / delete schedules used for fund hurdle rates.
+- **Portfolio reads** — fund's portfolio summary, cases, holdings, and transaction history (the fund's own portfolio of investments).
+- **News (full)** — read, draft, edit, preview, publish, delete LP letters and announcements.
+
+Writes that touch a room respect your per-room permissions automatically — Claude is told exactly which permission is missing if a write isn't allowed.
+
+### Skills
+
+- **news-updates** — drafting, previewing, and publishing LP communications.
+
+(More fund-specific skills are TBD — feedback welcome.)
+
+## What this plugin does *not* include
+
+- Cap-table admin (shares, options, employee equity) — use **`ownersroom-captable`**.
+- Investor-side portfolio book management — use **`ownersroom-portfolio`**.
+
+LP investors viewing *their* fund holdings should install **`ownersroom-portfolio`**, not this plugin — `portfolio` lists holdings cross-room, which is what an LP actually wants.
+
+## When to install this vs. the full plugin
+
+- Install **`ownersroom-commitments`** if your work is GP-side fund operations only.
+- Install **`ownersroom`** (kitchen sink) if you also need cap-table admin or your own portfolio book.
+- **Don't install both** — pick one. The kitchen sink already includes everything in this plugin.
