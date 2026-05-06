@@ -5,11 +5,17 @@ description: Analyze cap table data from OwnersRoom — ownership percentages, s
 
 # Cap Table Analysis
 
+## Before you start
+
+If the user's intent spans rooms ("across my companies", "which of my rooms…") or the right room / required permission is unclear, read `me://capabilities` first. It returns identity plus every accessible room with its per-module capability matrix in one shot — answers "which room?" and "can I write here?" without chaining `rooms://` + per-room capability reads.
+
+When the room is already known and only one is in scope, skip the bootstrap and start at step 1.
+
 ## Fetching Data
 
 Use ortool MCP tools and Resources to retrieve data. All responses are JSON.
 
-1. **Find the room** — read the `rooms://` Resource for the list of accessible companies. Each entry has an `id` (the room ID) and a `company.name`. For cross-room scope plus capabilities, read `me://capabilities`.
+1. **Find the room** — read the `rooms://` Resource for the list of accessible companies. Each entry has an `id` (the room ID) and a `company.name`.
 2. **Fetch share classes and shareholders in parallel**:
    - `room://{id}/share-classes` Resource — returns share classes with `id`, `name`, `totalShares`, `nominalValue`, `currency`, `shareCapital`, `totalShareholders`
    - `list_shareholders(roomId)` tool (paginated) — returns shareholders with `actor.displayName`, `assets.shares[].assetId` (matches share class ID), and `assets.shares[].holding`. The `room://{id}/shareholders` Resource returns the first page only.
