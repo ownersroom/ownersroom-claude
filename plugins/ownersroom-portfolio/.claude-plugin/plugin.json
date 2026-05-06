@@ -1,0 +1,15 @@
+{
+  "name": "ownersroom-portfolio",
+  "version": "1.0.0",
+  "description": "Investor-focused OwnersRoom plugin: track your portfolio, holdings, vesting, and read news from companies you've invested in. Smaller tool surface than the full ownersroom plugin.",
+  "author": {
+    "name": "OwnersRoom",
+    "url": "https://www.ownersroom.com"
+  },
+  "repository": "https://github.com/ownersroom/ownersroom-claude",
+  "license": "Apache-2.0",
+  "keywords": ["portfolio", "investor", "holdings", "vesting", "moic", "shareholder"],
+  "skills": "./skills/",
+  "commands": ["./commands/"],
+  "mcpServers": "./.mcp.json"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "ownersroom-captable",
+  "version": "1.0.0",
+  "description": "Cap-table admin OwnersRoom plugin for founders, CFOs, and ops people: manage shares, options, employee equity, and post company news. Smaller tool surface than the full ownersroom plugin.",
+  "author": {
+    "name": "OwnersRoom",
+    "url": "https://www.ownersroom.com"
+  },
+  "repository": "https://github.com/ownersroom/ownersroom-claude",
+  "license": "Apache-2.0",
+  "keywords": ["cap-table", "shares", "options", "vesting", "employee-loans", "ownership"],
+  "skills": "./skills/",
+  "commands": ["./commands/"],
+  "mcpServers": "./.mcp.json"
+}

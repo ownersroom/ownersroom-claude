@@ -1,0 +1,15 @@
+{
+  "name": "ownersroom-commitments",
+  "version": "1.0.0",
+  "description": "Fund-management OwnersRoom plugin for PE/VC GPs: manage LP commitments, capital calls, distributions, hurdles, and LP communications. Smaller tool surface than the full ownersroom plugin.",
+  "author": {
+    "name": "OwnersRoom",
+    "url": "https://www.ownersroom.com"
+  },
+  "repository": "https://github.com/ownersroom/ownersroom-claude",
+  "license": "Apache-2.0",
+  "keywords": ["fund", "commitments", "capital-call", "distribution", "lp", "gp", "private-equity"],
+  "skills": "./skills/",
+  "commands": ["./commands/"],
+  "mcpServers": "./.mcp.json"
+}

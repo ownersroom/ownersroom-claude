@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "ortool": {
+    "ortool-all": {
       "type": "http",
       "url": "https://ortool-mcp-dev-vf5a2veb4a-lz.a.run.app/mcp"
     }
