@@ -5,6 +5,12 @@ description: Interpret options data and vesting schedules from OwnersRoom — op
 
 # Options Expertise
 
+## Before you start
+
+If the user's intent spans rooms ("my options across companies") or the right room / required permission (`capTable.manageOptions` for writes) is unclear, read `me://capabilities` first. It returns identity plus every accessible room with its per-module capability matrix in one shot — answers "which room?" and "can I write here?" without chaining `rooms://` + per-room capability reads.
+
+When the room is already known and only one is in scope, skip the bootstrap.
+
 ## Fetching Data
 
 All options tools and Resources require a `roomId`. Read the `rooms://` Resource first if the room ID is unknown.
