@@ -10,10 +10,10 @@ The marketplace ships four plugins. **Pick one** based on what you do — they a
 
 | Plugin | Tools | Best for |
 |---|---:|---|
-| **`ownersroom-all`** | 64 | Default. Full surface — pick this if you want everything. |
-| **`ownersroom-portfolio`** | ~22 | Investor / shareholder — track your portfolio, holdings, vesting, news. |
-| **`ownersroom-captable`** | ~43 | Founder / CFO / cap-table admin — shares, options, employee equity, news. |
-| **`ownersroom-commitments`** | ~32 | PE / VC GP — LP commitments, capital ops, LP letters. |
+| **`ownersroom-all`** | 53 | Default. Full surface — pick this if you want everything. |
+| **`ownersroom-portfolio`** | ~14 | Investor / shareholder — track your portfolio, holdings, vesting, news. |
+| **`ownersroom-captable`** | ~36 | Founder / CFO / cap-table admin — shares, options, employee equity, news. |
+| **`ownersroom-commitments`** | ~22 | PE / VC GP — LP commitments, capital ops, LP letters. |
 
 ### Decision tree
 

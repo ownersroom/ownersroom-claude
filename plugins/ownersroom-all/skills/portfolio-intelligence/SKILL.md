@@ -7,22 +7,22 @@ description: Analyze investment portfolio data from OwnersRoom — portfolio sum
 
 ## Fetching Data
 
-Portfolio tools are user-scoped (no `roomId` needed, except where noted).
+Portfolio data is user-scoped (no `roomId` needed, except where noted).
 
-| Tool | Parameters | Returns |
-|------|-----------|---------|
-| `get_portfolio_summary` | (none) | Top-level: `invested[]`, `realized[]`, `unrealized[]`, `moic` |
-| `list_portfolio_cases` | (none) | Per-company: `name`, `identifier`, `invested[]`, `realized[]`, `unrealized[]`, `moic`, `assets[]` |
-| `list_portfolio_holdings` | (none) | Share-level: `roomName`, `shareClass`, `holding`, `totalShares`, `ownership`, `invested[]`, `unrealized`, `moic` |
-| `list_portfolio_events` | `roomId`, optional `after` | Transaction history: `registrationDate`, event type, share/option details |
-| `get_portfolio_vesting` | `caseIdentifier`, optional `poolId` | Option vesting for a case: `grants[]`, `vestingHistory` with data points |
+| Source | Parameters | Returns |
+|--------|-----------|---------|
+| `portfolio://summary` Resource | (none) | Top-level: `invested[]`, `realized[]`, `unrealized[]`, `moic` |
+| `portfolio://cases` Resource | (none) | Per-company: `name`, `identifier`, `invested[]`, `realized[]`, `unrealized[]`, `moic`, `assets[]` |
+| `portfolio://holdings` Resource | (none) | Share-level: `roomName`, `shareClass`, `holding`, `totalShares`, `ownership`, `invested[]`, `unrealized`, `moic` |
+| `list_portfolio_events` tool | `roomId`, optional `after` | Transaction history (paginated): `registrationDate`, event type, share/option details |
+| `get_portfolio_vesting` tool | `caseIdentifier`, optional `poolId` | Option vesting for a case: `grants[]`, `vestingHistory` with data points. The `portfolio://cases/{caseIdentifier}/vesting` Resource is the no-filter alternative. |
 
 ### Recommended Workflow
 
-1. Start with `get_portfolio_summary` for the big picture
-2. Drill into `list_portfolio_cases` for per-company breakdown
-3. Use `list_portfolio_holdings` for share-level detail
-4. Use `list_portfolio_events` for transaction history (roomId from cases or `list_rooms`)
+1. Start with `portfolio://summary` for the big picture
+2. Drill into `portfolio://cases` for per-company breakdown
+3. Use `portfolio://holdings` for share-level detail
+4. Use `list_portfolio_events` for transaction history (roomId from cases or `rooms://`)
 5. Use `get_portfolio_vesting` for option vesting (caseIdentifier from cases)
 
 ## Key Concepts
@@ -54,10 +54,10 @@ Portfolio data is designed for visualization:
 
 | Chart Type | Data Source | What It Shows |
 |-----------|-------------|--------------|
-| **Pie chart** | `list_portfolio_cases` → invested amounts | Portfolio allocation across companies |
-| **Bar chart** | `list_portfolio_cases` → moic per case | Performance comparison across companies |
+| **Pie chart** | `portfolio://cases` → invested amounts | Portfolio allocation across companies |
+| **Bar chart** | `portfolio://cases` → moic per case | Performance comparison across companies |
 | **Line chart** | `get_portfolio_vesting` → dataPoints | Vesting progress over time |
-| **Table** | `list_portfolio_holdings` | Holdings with ownership percentages |
+| **Table** | `portfolio://holdings` | Holdings with ownership percentages |
 | **Timeline** | `list_portfolio_events` | Transaction history chronologically |
 
 ## Analysis Patterns
@@ -70,7 +70,7 @@ Portfolio data is designed for visualization:
 
 ## Modifying data
 
-Portfolio writes operate on the user's own portfolio. Unlike room-scoped writes, **they are not gated by per-room capability flags** — the user always controls their own portfolio. No `get_room_capabilities` check needed.
+Portfolio writes operate on the user's own portfolio. Unlike room-scoped writes, **they are not gated by per-room capability flags** — the user always controls their own portfolio. No capability check needed.
 
 | Tool | Use for |
 |------|---------|
@@ -84,7 +84,7 @@ Portfolio writes operate on the user's own portfolio. Unlike room-scoped writes,
 
 ### Safe write pattern
 
-1. **Read** current state with `list_portfolio_cases` / `list_portfolio_holdings` so you can show what's there before a change.
+1. **Read** current state with the `portfolio://cases` / `portfolio://holdings` Resources so you can show what's there before a change.
 2. **Propose** the change with concrete numbers. For estimated values, show the previous estimate (and whether it was flagged `outdatedEstimate`).
 3. **Confirm** with the user.
 4. **Write**, then **read back** to confirm.

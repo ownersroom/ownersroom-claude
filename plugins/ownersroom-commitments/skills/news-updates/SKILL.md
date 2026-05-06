@@ -9,12 +9,12 @@ OwnersRoom rooms have a news feed for company updates — investor letters, quar
 
 ## Fetching Data
 
-| Tool | Parameters | Returns |
-|------|-----------|---------|
-| `list_posts` | `roomId`, optional `after`, `categories` | Paginated post summaries: `id`, `title`, `status`, `visibility`, dates, `author`, `categories` |
-| `get_post` | `roomId`, `postId` | Single post with full `body`, `contents` (rich-text JSON), all metadata |
+| Source | Parameters | Returns |
+|--------|-----------|---------|
+| `list_posts` tool | `roomId`, optional `after`, `categories` | Paginated post summaries: `id`, `title`, `status`, `visibility`, dates, `author`, `categories` |
+| `room://{id}/posts/{postId}` Resource | `id` (room ID), `postId` | Single post with full `body`, `contents` (rich-text JSON), all metadata |
 
-`list_posts` returns lightweight summaries; call `get_post` when the user wants the full body.
+`list_posts` returns lightweight summaries; read the `room://{id}/posts/{postId}` Resource when the user wants the full body.
 
 ## Post Lifecycle
 
@@ -65,15 +65,15 @@ Draft → Published → (optionally Updated)
 
 These operations have external, hard-to-undo effects. Confirm with the user before calling:
 
-- **`publish_post`** — the post becomes visible to its target audience and (if `shouldSendEmail: true`) emails go out. There is no undo for emails. Always read the draft back to the user with `get_post` and confirm before publishing.
+- **`publish_post`** — the post becomes visible to its target audience and (if `shouldSendEmail: true`) emails go out. There is no undo for emails. Always read the draft back to the user from `room://{id}/posts/{postId}` and confirm before publishing.
 - **`preview_post_email`** — sends a real email to the authenticated user. Lower stakes than `publish_post` (only the user receives it), but it's still a real email.
 - **`delete_post`** — destructive. Removes the post; cannot be recovered.
 
 ## Permissions
 
-All five post writes (`create_post`, `update_post`, `publish_post`, `delete_post`, `preview_post_email`) require `updates.createPost` on the room. Calls return a structured `action_not_allowed` envelope with `module: "updates"` and `action: "createPost"` if the user lacks it — use `get_room_capabilities(roomId)` (or the `capabilities` matrix on `list_rooms`) to check before drafting work the user can't actually publish.
+All five post writes (`create_post`, `update_post`, `publish_post`, `delete_post`, `preview_post_email`) require `updates.createPost` on the room. Calls return a structured `action_not_allowed` envelope with `module: "updates"` and `action: "createPost"` if the user lacks it — read `room://{id}/capabilities` (or `me://capabilities` for cross-room scope) to check before drafting work the user can't actually publish.
 
-Reads (`list_posts`, `get_post`) only require the `updates` module to be `Available`; they fail with `module_not_available` otherwise.
+Reads (`list_posts` tool, `room://{id}/posts/{postId}` Resource) only require the `updates` module to be `Available`; they fail with `module_not_available` otherwise.
 
 ## Common Workflows
 
@@ -91,13 +91,13 @@ Reads (`list_posts`, `get_post`) only require the `updates` module to be `Availa
 
 1. `list_posts(roomId)` for the room.
 2. Show titles, dates, status, and authors as a table.
-3. Offer to drill into a specific post via `get_post`.
+3. Offer to drill into a specific post by reading `room://{id}/posts/{postId}`.
 
 ### Editing a published post
 
-1. `get_post` to fetch current state.
+1. Read `room://{roomId}/posts/{postId}` to fetch current state.
 2. Show the user what will change.
-3. `update_post` with the new `params`. Note: most `PostInput` fields are required, so the params object should contain the full post — derive missing fields from the current `get_post` response.
+3. `update_post` with the new `params`. Note: most `PostInput` fields are required, so the params object should contain the full post — derive missing fields from the current Resource read.
 
 ## Field Mapping Cheat Sheet
 
