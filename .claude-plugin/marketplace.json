@@ -6,9 +6,24 @@
   },
   "plugins": [
     {
-      "name": "ownersroom",
-      "description": "Cap table, options, and portfolio analysis tools for OwnersRoom",
-      "source": "./plugins/ownersroom"
+      "name": "ownersroom-all",
+      "description": "Full OwnersRoom surface: cap table, options, portfolio, fund management, and news. 64 MCP tools + all skills. Pick this if you want everything.",
+      "source": "./plugins/ownersroom-all"
+    },
+    {
+      "name": "ownersroom-portfolio",
+      "description": "Investor-focused: track your portfolio, holdings, vesting, and read news from companies you've invested in. ~22 MCP tools.",
+      "source": "./plugins/ownersroom-portfolio"
+    },
+    {
+      "name": "ownersroom-captable",
+      "description": "Cap-table admin: manage shares, options, employee equity, and post company news. ~43 MCP tools.",
+      "source": "./plugins/ownersroom-captable"
+    },
+    {
+      "name": "ownersroom-commitments",
+      "description": "Fund management for PE/VC GPs: LP commitments, capital calls, distributions, hurdles, and LP letters. ~32 MCP tools.",
+      "source": "./plugins/ownersroom-commitments"
     }
   ]
 }

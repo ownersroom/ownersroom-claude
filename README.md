@@ -2,7 +2,30 @@
 
 > **Experimental.** This is an internal prototype exploring AI-assisted workflows for equity data. It is not a supported OwnersRoom product and may change or break without notice. Not intended for end users of OwnersRoom.
 
-Access OwnersRoom cap table, options, and portfolio data from Claude Code.
+Access OwnersRoom cap table, options, portfolio, and fund management data from Claude Code.
+
+## Plugins
+
+The marketplace ships four plugins. **Pick one** based on what you do — they all overlap in tool coverage, and installing two at once doubles the LLM's tool surface unnecessarily.
+
+| Plugin | Tools | Best for |
+|---|---:|---|
+| **`ownersroom-all`** | 64 | Default. Full surface — pick this if you want everything. |
+| **`ownersroom-portfolio`** | ~22 | Investor / shareholder — track your portfolio, holdings, vesting, news. |
+| **`ownersroom-captable`** | ~43 | Founder / CFO / cap-table admin — shares, options, employee equity, news. |
+| **`ownersroom-commitments`** | ~32 | PE / VC GP — LP commitments, capital ops, LP letters. |
+
+### Decision tree
+
+- **Reading your own holdings or news?** → `ownersroom-portfolio`.
+- **Running a company's cap table?** → `ownersroom-captable`.
+- **Running a fund?** → `ownersroom-commitments`.
+- **Crossing roles, or unsure?** → `ownersroom-all`.
+
+### Boundary clarifications
+
+- `ownersroom-captable` covers **company-internal** capital structure (shares, options, employee equity). LP commitments live in `ownersroom-commitments`.
+- `ownersroom-commitments` is **GP-side** fund operations. LP investors viewing *their* fund holdings should install `ownersroom-portfolio` (it lists holdings cross-room).
 
 ## Install
 
@@ -14,8 +37,11 @@ In Claude Code, run:
 # Add the OwnersRoom marketplace
 /plugin marketplace add ownersroom/ownersroom-claude
 
-# Install the plugin
-/plugin install ownersroom@ownersroom
+# Install the plugin you want (one of)
+/plugin install ownersroom-all@ownersroom
+/plugin install ownersroom-portfolio@ownersroom
+/plugin install ownersroom-captable@ownersroom
+/plugin install ownersroom-commitments@ownersroom
 ```
 
 You can also browse and install via the interactive `/plugin` menu under the **Discover** tab.
@@ -25,48 +51,54 @@ You can also browse and install via the interactive `/plugin` menu under the **D
 1. Open the Claude Desktop app and switch to the **Cowork** tab.
 2. Click **Customize** in the left sidebar.
 3. Click **Browse plugins** to open the plugin browser.
-4. Find the OwnersRoom plugin and click **Install**.
+4. Find the OwnersRoom plugin you want and click **Install**.
 
 If the plugin isn't listed in the browser, you can upload it as a custom plugin file instead.
 
 ---
 
-Claude Code will prompt you to log in with your OwnersRoom account on first use.
+Claude Code will prompt you to log in with your OwnersRoom account on first use. Per-plugin tokens are independent — installing a different plugin requires re-authenticating.
 
-## What You Get
+## Renamed in 2.0.0
 
-### MCP Tools
+The previously single `ownersroom@ownersroom` plugin was renamed to `ownersroom-all@ownersroom` to fit the persona-prefix family. If you previously installed `ownersroom@ownersroom`:
 
-The plugin connects to the OwnersRoom API and gives Claude access to your data — both reads and writes.
+```
+/plugin uninstall ownersroom@ownersroom
+/plugin install ownersroom-all@ownersroom
+```
 
-- **Companies** — list rooms you have access to, with per-room capability matrix so Claude can plan around what you're allowed to do
-- **Cap table** — read share classes, shareholders, ownership; create / update / delete share classes, share issuances, share transactions, capital events
-- **Options** — read pools, grants, holders, vesting schedules; create / update / delete pools and grants; cancel and exercise grants
-- **Portfolio** — read summary, per-company performance, holdings, transaction history; create / update / delete portfolio cases and assets; update estimated values
-- **News posts** — read, draft, edit, preview, and publish room updates
-- **User profile** — read and update your own profile
+You will need to re-complete the OAuth flow — the underlying MCP server name also changed (`ortool` → `ortool-all`) and tokens don't carry over.
+
+## What you get
+
+All plugins share the same building blocks:
+
+### MCP tools
+
+The plugin connects to the OwnersRoom API and gives Claude access to your data — both reads and writes. Each plugin includes a focused subset of the full surface; see the plugin's own README for the tools it ships.
 
 Writes that touch a room respect your per-room permissions automatically — Claude is told exactly which permission is missing if a write isn't allowed, so you can request access (or pick a different room) instead of seeing a cryptic failure.
 
-See [CONNECTORS.md](plugins/ownersroom/CONNECTORS.md) for the full tool reference, including the structured-error envelope and the capability-planning model.
+See [CONNECTORS.md](plugins/ownersroom-all/CONNECTORS.md) for the full tool reference, including the structured-error envelope and the capability-planning model.
 
 ### Skills
 
 Skills activate automatically when Claude detects a relevant question — just ask naturally.
 
-| Skill | Triggers on |
-|-------|------------|
-| **captable-analysis** | Ownership, shareholders, share classes, dilution, cap table |
-| **options-expertise** | Options, vesting, grants, strike price, exercise cost |
-| **portfolio-intelligence** | Portfolio, investments, returns, MOIC, holdings |
-| **news-updates** | News posts, room updates, investor letters, drafting / publishing announcements |
+| Skill | Triggers on | In plugins |
+|-------|------------|-----------|
+| **captable-analysis** | Ownership, shareholders, share classes, dilution, cap table | `-all`, `-captable` |
+| **options-expertise** | Options, vesting, grants, strike price, exercise cost | `-all`, `-captable` |
+| **portfolio-intelligence** | Portfolio, investments, returns, MOIC, holdings | `-all`, `-portfolio` |
+| **news-updates** | News posts, room updates, investor letters, drafting / publishing announcements | `-all`, `-captable`, `-commitments` |
 
-### Commands
+### Slash commands
 
-| Command | Description |
-|---------|-------------|
-| `/ownersroom:ownership-report` | Shareholder ownership report for a company |
-| `/ownersroom:portfolio-report` | Portfolio overview with performance metrics |
+| Command | Description | In plugins |
+|---------|-------------|-----------|
+| `/ownership-report` | Shareholder ownership report for a company | `-all`, `-captable` |
+| `/portfolio-report` | Portfolio overview with performance metrics | `-all`, `-portfolio` |
 
 ## Examples
 
@@ -74,8 +106,8 @@ Skills activate automatically when Claude detects a relevant question — just a
 > What companies do I have access to?
 > Show me the ownership breakdown for Acme Corp
 > What's my portfolio performance?
-> /ownersroom:ownership-report
-> /ownersroom:portfolio-report
+> /portfolio-report
+> /ownership-report
 > Show me the vesting schedule for my options in Acme Corp
 > List the most recent news posts in Acme Corp
 > Draft a Q1 investor update for Acme Corp and let me preview it before publishing
