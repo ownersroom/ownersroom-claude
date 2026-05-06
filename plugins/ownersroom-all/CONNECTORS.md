@@ -89,6 +89,72 @@ Portfolio writes operate on the authenticated user's portfolio (not a room). The
 
 File attachments are not supported in `params` (the GraphQL `Upload!` scalar can't go through MCP transport). Attach files via the OwnersRoom web UI.
 
+### Typed write-tool params
+
+Every write tool above declares an explicit JSON-Schema for its `params` field — no more opaque `params: object`. Clients with structured-output support can generate type-safe call sites; LLMs see the field shape directly without parsing description prose. Reusable value-object schemas (`MonetaryInput`, `ActorIdInput`, ledger-entry shapes per aggregate, `ShareClassInput`, `OptionTypeInput`, `PostInput`, etc.) appear in multiple tools and are consistent across them.
+
+## Available Resources
+
+The MCP server also exposes **22 read-only Resources** — passive context the LLM can browse without burning a tool call. Resource-aware clients (Claude Code, Claude Desktop, Gemini CLI) auto-discover these via `resources/list` and `resources/templates/list`. Resources don't replace tools; tools still take parameters and perform writes.
+
+Each persona profile exposes a tailored subset; the kitchen-sink (`ownersroom-all`) shows all 22.
+
+### Static enums
+
+| URI | Profiles |
+|-----|----------|
+| `enums://currencies` | every profile |
+| `enums://post-visibilities` | every profile |
+| `enums://day-count-conventions` | captable, commitments, all |
+| `enums://capitalization-frequencies` | captable, commitments, all |
+| `enums://capital-event-kinds` | captable, commitments, all |
+
+### Identity
+
+| URI | Profiles |
+|-----|----------|
+| `me://` | every profile |
+
+### Rooms (collection + per-room metadata)
+
+| URI | Profiles |
+|-----|----------|
+| `rooms://` | every profile |
+| `room://{id}` | every profile |
+| `room://{id}/capabilities` | every profile |
+
+### Per-room reference data
+
+| URI | Profiles |
+|-----|----------|
+| `room://{id}/share-classes` | every profile |
+| `room://{id}/shareholders` (first page) | captable + portfolio + all |
+| `room://{id}/option-pools` | captable + all |
+| `room://{id}/option-holders` (first page) | captable + all |
+| `room://{id}/interest-rate-schedules` | captable + commitments + all |
+| `room://{id}/fund` | commitments + all |
+| `room://{id}/fund/commitment-holders` (first page) | commitments + all |
+
+### Per-room templated reads
+
+| URI | Profiles |
+|-----|----------|
+| `room://{id}/posts/{postId}` | every profile |
+| `room://{id}/people/{actorId}/vesting` | portfolio + captable + all |
+
+### Portfolio (user-scoped, cross-room)
+
+| URI | Profiles |
+|-----|----------|
+| `portfolio://summary` | portfolio + all |
+| `portfolio://cases` | portfolio + all |
+| `portfolio://holdings` | portfolio + all |
+| `portfolio://cases/{caseIdentifier}/vesting` | portfolio + all |
+
+**Pagination on Resources**: `shareholders`, `option-holders`, and `commitment-holders` Resources return the first page only (default 100). Use the corresponding `list_*` tool when more pages are needed.
+
+**Optional template parameters dropped**: the vesting Resources don't accept the `poolId` filter that the underlying tools accept. Use `get_vesting_history` or `get_portfolio_vesting` when filtering by pool.
+
 ## Capability-aware planning
 
 Room-scoped tools check the user's per-room access *before* issuing the request. This lets you plan without bouncing off failures.

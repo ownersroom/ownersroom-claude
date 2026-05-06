@@ -78,9 +78,17 @@ All plugins share the same building blocks:
 
 The plugin connects to the OwnersRoom API and gives Claude access to your data — both reads and writes. Each plugin includes a focused subset of the full surface; see the plugin's own README for the tools it ships.
 
+Every write tool exposes a typed JSON-Schema for its parameters — clients with structured-output support can generate type-safe call sites instead of guessing field shapes from prose.
+
 Writes that touch a room respect your per-room permissions automatically — Claude is told exactly which permission is missing if a write isn't allowed, so you can request access (or pick a different room) instead of seeing a cryptic failure.
 
 See [CONNECTORS.md](plugins/ownersroom-all/CONNECTORS.md) for the full tool reference, including the structured-error envelope and the capability-planning model.
+
+### MCP Resources
+
+Beyond the tools, the server exposes **22 read-only Resources** — passive context Claude can browse without burning a tool call. Examples: `me://` (your profile), `enums://capital-event-kinds` (valid event types), `room://{id}/share-classes` (a room's share classes), `portfolio://summary` (your portfolio summary), `room://{id}/posts/{postId}` (a single news post). Each persona profile exposes a tailored subset; the kitchen-sink (`ownersroom-all`) shows all 22.
+
+Resources work alongside tools — they're for read-only context, not writes. See [CONNECTORS.md](plugins/ownersroom-all/CONNECTORS.md) for the full Resource catalog.
 
 ### Skills
 

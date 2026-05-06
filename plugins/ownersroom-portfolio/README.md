@@ -22,6 +22,10 @@ A focused install for **investors** — track your portfolio, view holdings and 
 - **Portfolio (manage your book)** — create / update / delete portfolio cases and assets, update estimated values.
 - **News (read)** — read posts from companies in your portfolio.
 
+### MCP Resources
+
+The server also exposes **read-only Resources** for passive context: identity (`me://`), rooms (`rooms://`, `room://{id}`, `room://{id}/capabilities`), per-room reads (`room://{id}/share-classes`, `room://{id}/shareholders`, `room://{id}/posts/{postId}`, `room://{id}/people/{actorId}/vesting`), and portfolio (`portfolio://summary`, `portfolio://cases`, `portfolio://holdings`, `portfolio://cases/{caseIdentifier}/vesting`).
+
 ### Skills
 
 - **portfolio-intelligence** — analyze investment performance, MOIC, holdings, transaction history.
