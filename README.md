@@ -86,7 +86,7 @@ See [CONNECTORS.md](plugins/ownersroom-all/CONNECTORS.md) for the full tool refe
 
 ### MCP Resources
 
-Beyond the tools, the server exposes **22 read-only Resources** — passive context Claude can browse without burning a tool call. Examples: `me://` (your profile), `enums://capital-event-kinds` (valid event types), `room://{id}/share-classes` (a room's share classes), `portfolio://summary` (your portfolio summary), `room://{id}/posts/{postId}` (a single news post). Each persona profile exposes a tailored subset; the kitchen-sink (`ownersroom-all`) shows all 22.
+Beyond the tools, the server exposes **23 read-only Resources** — passive context Claude can browse without burning a tool call. Examples: `me://` (your profile), `me://capabilities` (your profile + every accessible room with its capability matrix, in one read), `enums://capital-event-kinds` (valid event types), `room://{id}/share-classes` (a room's share classes), `portfolio://summary` (your portfolio summary), `room://{id}/posts/{postId}` (a single news post). Each persona profile exposes a tailored subset; the kitchen-sink (`ownersroom-all`) shows all 23.
 
 Resources work alongside tools — they're for read-only context, not writes. See [CONNECTORS.md](plugins/ownersroom-all/CONNECTORS.md) for the full Resource catalog.
 
