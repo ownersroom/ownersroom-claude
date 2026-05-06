@@ -7,17 +7,17 @@
   "plugins": [
     {
       "name": "ownersroom-all",
-      "description": "Full OwnersRoom surface: cap table, options, portfolio, fund management, and news. 53 MCP tools + 23 Resources + all skills. Pick this if you want everything.",
+      "description": "Full OwnersRoom surface: cap table, options, portfolio, fund management, and news. 56 MCP tools + 23 Resources + all skills. Pick this if you want everything.",
       "source": "./plugins/ownersroom-all"
     },
     {
       "name": "ownersroom-portfolio",
-      "description": "Investor-focused: track your portfolio, holdings, vesting, and read news from companies you've invested in. ~14 MCP tools.",
+      "description": "Investor-focused: track your portfolio, holdings, vesting, and read news from companies you've invested in. ~13 MCP tools.",
       "source": "./plugins/ownersroom-portfolio"
     },
     {
       "name": "ownersroom-captable",
-      "description": "Cap-table admin: manage shares, options, employee equity, and post company news. ~36 MCP tools.",
+      "description": "Cap-table admin: manage shares, options, employee equity, and post company news. ~38 MCP tools.",
       "source": "./plugins/ownersroom-captable"
     },
     {

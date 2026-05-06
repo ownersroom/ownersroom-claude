@@ -23,14 +23,17 @@ Read-only tools cover anything that requires filtering or pagination. Reads with
 | Tool | Parameters | Description |
 |------|-----------|-------------|
 | `list_shareholders` | `roomId`, optional `after` | Shareholders with per-class holdings (paginated) |
-| `list_capital_events` | `roomId`, `types[]`, optional `actorIds`, `after` | Paginated capital events filtered by type |
+| `list_share_events` | `roomId`, optional `actorIds`, `after` | Share events (issuance, transaction, split, cancellation, import) with full per-event ledger |
 | `list_option_grants` | `roomId`, optional `poolId`, `actorId` | Individual option grants with optional filtering |
 | `list_option_holders` | `roomId`, optional `after` | Aggregated option holder data (paginated) |
+| `list_option_events` | `roomId`, optional `actorIds`, `after` | Option events (grant created, cancelled, exercised) with full per-event ledger |
 | `get_vesting_history` | `roomId`, `actorId`, optional `poolId` | Vesting timeline with data points |
 | `list_employee_loans` | `roomId`, optional `borrowerId`, `lenderId`, `currency`, `asOfDate`, `after` | Paginated employee loans with live interest snapshot |
 | `list_loan_repayments` | `roomId`, `loanId`, optional `after` | Paginated repayments for a loan |
+| `list_employee_loan_events` | `roomId`, optional `actorIds`, `after` | Employee-loan events (issuance, repayment) — room-wide flat view |
 | `simulate_loan_interest` | `roomId`, `principal`, `startDate`, `endDate`, optional schedule, repayments | Compute interest accrual on a hypothetical loan |
 | `list_commitment_holders` | `roomId`, optional `after` | Per-actor commitment breakdown (paginated) |
+| `list_commitment_events` | `roomId`, optional `actorIds`, `after` | Commitment + cash-flow events (close, transfer, capital call, distribution, equalization) with full per-event ledger |
 | `list_portfolio_events` | `roomId`, optional `after` | Paginated transaction history |
 | `get_portfolio_vesting` | `caseIdentifier`, optional `poolId` | Option vesting for a portfolio case |
 | `list_posts` | `roomId`, optional `after`, `categories` | News post summaries (paginated) |
