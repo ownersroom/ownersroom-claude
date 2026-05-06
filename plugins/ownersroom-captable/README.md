@@ -26,7 +26,7 @@ Writes that touch a room respect your per-room permissions automatically — Cla
 
 ### MCP Resources
 
-The server also exposes **read-only Resources** for passive context: enums (currencies, post-visibilities, day-count conventions, capitalization frequencies, capital-event kinds), identity (`me://`), rooms (`rooms://`, `room://{id}`, `room://{id}/capabilities`), per-room reads (share classes, shareholders, option pools, option holders, interest-rate schedules), and templated reads (`room://{id}/posts/{postId}`, `room://{id}/people/{actorId}/vesting`).
+The server also exposes **read-only Resources** for passive context: enums (currencies, post-visibilities, day-count conventions, capitalization frequencies, capital-event kinds), identity (`me://`, `me://capabilities` for one-shot user + per-room capability matrix), rooms (`rooms://`, `room://{id}`, `room://{id}/capabilities`), per-room reads (share classes, shareholders, option pools, option holders, interest-rate schedules), and templated reads (`room://{id}/posts/{postId}`, `room://{id}/people/{actorId}/vesting`).
 
 ### Skills
 

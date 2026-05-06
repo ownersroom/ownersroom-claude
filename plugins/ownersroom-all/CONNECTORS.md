@@ -95,9 +95,9 @@ Every write tool above declares an explicit JSON-Schema for its `params` field �
 
 ## Available Resources
 
-The MCP server also exposes **22 read-only Resources** — passive context the LLM can browse without burning a tool call. Resource-aware clients (Claude Code, Claude Desktop, Gemini CLI) auto-discover these via `resources/list` and `resources/templates/list`. Resources don't replace tools; tools still take parameters and perform writes.
+The MCP server also exposes **23 read-only Resources** — passive context the LLM can browse without burning a tool call. Resource-aware clients (Claude Code, Claude Desktop, Gemini CLI) auto-discover these via `resources/list` and `resources/templates/list`. Resources don't replace tools; tools still take parameters and perform writes.
 
-Each persona profile exposes a tailored subset; the kitchen-sink (`ownersroom-all`) shows all 22.
+Each persona profile exposes a tailored subset; the kitchen-sink (`ownersroom-all`) shows all 23.
 
 ### Static enums
 
@@ -114,6 +114,9 @@ Each persona profile exposes a tailored subset; the kitchen-sink (`ownersroom-al
 | URI | Profiles |
 |-----|----------|
 | `me://` | every profile |
+| `me://capabilities` | every profile |
+
+`me://capabilities` returns the user plus every accessible room with its per-module capability matrix in one read — useful as a session-start scope check when the user's intent spans rooms or capability is uncertain. Per-room capability fetches that fail surface as `fetchError` on the entry rather than failing the whole response.
 
 ### Rooms (collection + per-room metadata)
 

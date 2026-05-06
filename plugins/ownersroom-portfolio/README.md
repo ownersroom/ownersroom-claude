@@ -24,7 +24,7 @@ A focused install for **investors** — track your portfolio, view holdings and 
 
 ### MCP Resources
 
-The server also exposes **read-only Resources** for passive context: identity (`me://`), rooms (`rooms://`, `room://{id}`, `room://{id}/capabilities`), per-room reads (`room://{id}/share-classes`, `room://{id}/shareholders`, `room://{id}/posts/{postId}`, `room://{id}/people/{actorId}/vesting`), and portfolio (`portfolio://summary`, `portfolio://cases`, `portfolio://holdings`, `portfolio://cases/{caseIdentifier}/vesting`).
+The server also exposes **read-only Resources** for passive context: identity (`me://`, `me://capabilities` for one-shot user + per-room capability matrix), rooms (`rooms://`, `room://{id}`, `room://{id}/capabilities`), per-room reads (`room://{id}/share-classes`, `room://{id}/shareholders`, `room://{id}/posts/{postId}`, `room://{id}/people/{actorId}/vesting`), and portfolio (`portfolio://summary`, `portfolio://cases`, `portfolio://holdings`, `portfolio://cases/{caseIdentifier}/vesting`).
 
 ### Skills
 
