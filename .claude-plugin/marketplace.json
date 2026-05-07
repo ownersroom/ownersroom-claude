@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "ownersroom-all",
-      "description": "Full OwnersRoom surface: cap table, options, portfolio, fund management, contacts, deals, and news. 78 MCP tools + 27 Resources + all skills. Pick this if you want everything.",
+      "description": "Full OwnersRoom surface: cap table, options, portfolio, fund management, contacts, deals, e-signature, and news. 83 MCP tools + 28 Resources + all skills. Pick this if you want everything.",
       "source": "./plugins/ownersroom-all"
     },
     {
@@ -17,12 +17,12 @@
     },
     {
       "name": "ownersroom-captable",
-      "description": "Cap-table admin: manage shares, options, employee equity, contacts, primary share offerings (deals), and post company news. ~60 MCP tools.",
+      "description": "Cap-table admin: manage shares, options, employee equity, contacts, primary share offerings (deals), document e-signature, and post company news. ~65 MCP tools.",
       "source": "./plugins/ownersroom-captable"
     },
     {
       "name": "ownersroom-commitments",
-      "description": "Fund management for PE/VC GPs: LP commitments, capital calls, distributions, hurdles, and LP letters. ~22 MCP tools.",
+      "description": "Fund management for PE/VC GPs: LP commitments, capital calls, distributions, hurdles, document e-signature, and LP letters. ~27 MCP tools.",
       "source": "./plugins/ownersroom-commitments"
     }
   ]

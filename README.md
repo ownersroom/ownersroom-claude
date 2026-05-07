@@ -10,10 +10,10 @@ The marketplace ships four plugins. **Pick one** based on what you do — they a
 
 | Plugin | Tools | Best for |
 |---|---:|---|
-| **`ownersroom-all`** | 78 | Default. Full surface — pick this if you want everything. |
+| **`ownersroom-all`** | 83 | Default. Full surface — pick this if you want everything. |
 | **`ownersroom-portfolio`** | ~13 | Investor / shareholder — track your portfolio, holdings, vesting, news. |
-| **`ownersroom-captable`** | ~60 | Founder / CFO / cap-table admin — shares, options, employee equity, contacts, deals, news. |
-| **`ownersroom-commitments`** | ~22 | PE / VC GP — LP commitments, capital ops, LP letters. |
+| **`ownersroom-captable`** | ~65 | Founder / CFO / cap-table admin — shares, options, employee equity, contacts, deals, e-signature, news. |
+| **`ownersroom-commitments`** | ~27 | PE / VC GP — LP commitments, capital ops, e-signature, LP letters. |
 
 ### Decision tree
 
@@ -86,7 +86,7 @@ See [CONNECTORS.md](plugins/ownersroom-all/CONNECTORS.md) for the full tool refe
 
 ### MCP Resources
 
-Beyond the tools, the server exposes **27 read-only Resources** — passive context Claude can browse without burning a tool call. Examples: `me://` (your profile), `me://capabilities` (your profile + every accessible room with its capability matrix, in one read), `enums://capital-event-kinds` (valid event types), `room://{id}/share-classes` (a room's share classes), `room://{id}/people` (people in a room), `room://{id}/deals/{dealId}` (a single deal with offers and participants), `portfolio://summary` (your portfolio summary), `room://{id}/posts/{postId}` (a single news post). Each persona profile exposes a tailored subset; the kitchen-sink (`ownersroom-all`) shows all 27.
+Beyond the tools, the server exposes **28 read-only Resources** — passive context Claude can browse without burning a tool call. Examples: `me://` (your profile), `me://capabilities` (your profile + every accessible room with its capability matrix, in one read), `enums://capital-event-kinds` (valid event types), `room://{id}/share-classes` (a room's share classes), `room://{id}/people` (people in a room), `room://{id}/deals/{dealId}` (a single deal with offers and participants), `room://{id}/signing-requests` (in-flight signing requests), `portfolio://summary` (your portfolio summary), `room://{id}/posts/{postId}` (a single news post). Each persona profile exposes a tailored subset; the kitchen-sink (`ownersroom-all`) shows all 28.
 
 Resources work alongside tools — they're for read-only context, not writes. See [CONNECTORS.md](plugins/ownersroom-all/CONNECTORS.md) for the full Resource catalog.
 
