@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "ownersroom-all",
-      "description": "Full OwnersRoom surface: cap table, options, portfolio, fund management, contacts, and news. 64 MCP tools + 25 Resources + all skills. Pick this if you want everything.",
+      "description": "Full OwnersRoom surface: cap table, options, portfolio, fund management, contacts, deals, and news. 78 MCP tools + 27 Resources + all skills. Pick this if you want everything.",
       "source": "./plugins/ownersroom-all"
     },
     {
@@ -17,7 +17,7 @@
     },
     {
       "name": "ownersroom-captable",
-      "description": "Cap-table admin: manage shares, options, employee equity, contacts, and post company news. ~46 MCP tools.",
+      "description": "Cap-table admin: manage shares, options, employee equity, contacts, primary share offerings (deals), and post company news. ~60 MCP tools.",
       "source": "./plugins/ownersroom-captable"
     },
     {

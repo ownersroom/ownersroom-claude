@@ -2,7 +2,7 @@
 
 > **Experimental.** Internal prototype exploring AI-assisted workflows for equity data. Not a supported OwnersRoom product. Not intended for end users of OwnersRoom.
 
-A focused install for **company admins** — manage your company's capital structure: share classes, share issuances, option pools, grants, vesting, employee loans, contacts (people, companies), and company communications. ~46 tools.
+A focused install for **company admins** — manage your company's capital structure: share classes, share issuances, option pools, grants, vesting, employee loans, contacts (people, companies), deals (primary share offerings), and company communications. ~60 tools.
 
 ## Install
 
@@ -13,7 +13,7 @@ A focused install for **company admins** — manage your company's capital struc
 
 ## What you get
 
-### MCP tools (~46)
+### MCP tools (~60)
 
 - **Identity & rooms** — current user, list rooms, per-room capabilities.
 - **Shares** — list classes & shareholders; create / update / delete share classes, share issuances, transactions; delete capital events.
@@ -21,13 +21,14 @@ A focused install for **company admins** — manage your company's capital struc
 - **Employee loans** — list loans, repayments, simulate interest; create / update issuance and repayment events.
 - **Interest rate schedules** — list / create / update / delete schedules used for loan accrual.
 - **Contacts** — list people / companies; create / update Person and Company actors; search and look up organizations against external registries (e.g., Brønnøysund).
+- **Deals (primary share offerings)** — create / open / close / cancel deals; manage participants, primary share offers, allocations, and payments; bridge a closed deal to the cap table as a share-issuance event.
 - **News** — read, draft, edit, preview, publish, delete company posts.
 
 Writes that touch a room respect your per-room permissions automatically — Claude is told exactly which permission is missing if a write isn't allowed. Every write tool exposes a typed JSON-Schema for its parameters.
 
 ### MCP Resources
 
-The server also exposes **read-only Resources** for passive context: enums (currencies, post-visibilities, day-count conventions, capitalization frequencies, capital-event kinds), identity (`me://`, `me://capabilities` for one-shot user + per-room capability matrix), rooms (`rooms://`, `room://{id}`, `room://{id}/capabilities`), per-room reads (share classes, shareholders, option pools, option holders, interest-rate schedules, people, companies), and templated reads (`room://{id}/posts/{postId}`, `room://{id}/people/{actorId}/vesting`).
+The server also exposes **read-only Resources** for passive context: enums (currencies, post-visibilities, day-count conventions, capitalization frequencies, capital-event kinds), identity (`me://`, `me://capabilities` for one-shot user + per-room capability matrix), rooms (`rooms://`, `room://{id}`, `room://{id}/capabilities`), per-room reads (share classes, shareholders, option pools, option holders, interest-rate schedules, people, companies, deals), and templated reads (`room://{id}/posts/{postId}`, `room://{id}/deals/{dealId}`, `room://{id}/people/{actorId}/vesting`).
 
 ### Skills
 
