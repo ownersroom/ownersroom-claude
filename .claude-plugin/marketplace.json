@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "ownersroom-all",
-      "description": "Full OwnersRoom surface: cap table, options, portfolio, fund management, contacts, deals, e-signature, and news. 83 MCP tools + 28 Resources + all skills. Pick this if you want everything.",
+      "description": "Full OwnersRoom surface: cap table, options, portfolio, fund management, contacts, deals, e-signature, and news. 83 MCP tools + 28 Resources + saga Prompts + all skills. Pick this if you want everything.",
       "source": "./plugins/ownersroom-all"
     },
     {

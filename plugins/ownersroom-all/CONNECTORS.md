@@ -218,6 +218,18 @@ Each persona profile exposes a tailored subset; the kitchen-sink (`ownersroom-al
 
 **Optional template parameters dropped**: the vesting Resources don't accept the `poolId` filter that the underlying tools accept. Use `get_vesting_history` or `get_portfolio_vesting` when filtering by pool.
 
+## Available Prompts
+
+MCP Prompts are reusable saga templates — orchestrated sequences of tool calls and Resource reads that the LLM would otherwise have to assemble from prose hints. Clients (Claude Code, Claude Desktop) advertise them via `prompts/list` and let the user invoke them by name with optional arguments. Saga prose lives in markdown templates in the server source so reviewers can read and diff the saga shape directly.
+
+| Prompt | Arguments | Persona |
+|--------|-----------|---------|
+| `financing_round` | `roomId` (required); optional `dealName`, `targetRoundSize` | captable + all |
+
+`financing_round` walks through a primary financing round end-to-end: discover IDs via `room://{id}/share-classes` and `room://{id}/people` → `create_deal` → `create_primary_share_offer` → `create_deal_participant` (×N) → **stop & confirm** → `open_deal` (sends real offer emails) → `close_deal` → `update_primary_share_subscription_allocations` + `_payments` → **stop & confirm** → `add_deal_to_cap_table` (irreversible share issuance) → `create_post` + `publish_post`. Verification of state via `room://{id}/deals/{dealId}` after each transition; recovery guidance for partial failures.
+
+**Prompts vs slash commands**: MCP Prompts are server-side saga templates advertised to any MCP client; plugin slash commands (`/ownership-report`, `/portfolio-report`) are client-side report rendering that only Claude Code surfaces. The two coexist deliberately — sagas with multi-tool write flows live in Prompts; presentation-focused reports live in slash commands.
+
 ## Capability-aware planning
 
 Room-scoped tools check the user's per-room access *before* issuing the request. This lets you plan without bouncing off failures.
