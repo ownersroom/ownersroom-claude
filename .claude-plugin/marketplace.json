@@ -22,7 +22,7 @@
     },
     {
       "name": "ownersroom-commitments",
-      "description": "Fund management for PE/VC GPs: LP commitments, capital calls, distributions, hurdles, document e-signature, and LP letters. ~27 MCP tools.",
+      "description": "Fund management for PE/VC GPs: LP commitments, capital calls, distributions, hurdles, document e-signature, and LP letters. ~27 MCP tools + saga Prompts (capital-call cycle, quarterly LP letter).",
       "source": "./plugins/ownersroom-commitments"
     }
   ]
