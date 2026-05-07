@@ -225,8 +225,14 @@ MCP Prompts are reusable saga templates — orchestrated sequences of tool calls
 | Prompt | Arguments | Persona |
 |--------|-----------|---------|
 | `financing_round` | `roomId` (required); optional `dealName`, `targetRoundSize` | captable + all |
+| `capital_call_cycle` | `roomId` (required); optional `callPercentage`, `dueDate` | commitments + all |
+| `quarterly_lp_letter` | `roomId` (required); optional `quarter` | commitments + all |
 
 `financing_round` walks through a primary financing round end-to-end: discover IDs via `room://{id}/share-classes` and `room://{id}/people` → `create_deal` → `create_primary_share_offer` → `create_deal_participant` (×N) → **stop & confirm** → `open_deal` (sends real offer emails) → `close_deal` → `update_primary_share_subscription_allocations` + `_payments` → **stop & confirm** → `add_deal_to_cap_table` (irreversible share issuance) → `create_post` + `publish_post`. Verification of state via `room://{id}/deals/{dealId}` after each transition; recovery guidance for partial failures.
+
+`capital_call_cycle` runs a single capital-call cycle: discover via `room://{id}/fund` and `room://{id}/fund/commitment-holders` → **stop & confirm** → `create_capital_call` (real financial event) → optional `create_capital_equalization` based on a close-history heuristic → LP notification with `create_post` → optional `preview_post_email` → **stop & confirm** → `publish_post`.
+
+`quarterly_lp_letter` drafts a quarterly LP letter: read `room://{id}/fund`, `room://{id}/fund/commitment-holders`, recent `list_commitment_events` for the quarter window → caller-provided portfolio updates (the saga deliberately doesn't auto-discover, since `list_portfolio_cases` is portfolio-persona only) → `create_post` with a structured body (Q summary / capital activity / portfolio updates / outlook) → `preview_post_email` → **stop & confirm** → `publish_post`.
 
 **Prompts vs slash commands**: MCP Prompts are server-side saga templates advertised to any MCP client; plugin slash commands (`/ownership-report`, `/portfolio-report`) are client-side report rendering that only Claude Code surfaces. The two coexist deliberately — sagas with multi-tool write flows live in Prompts; presentation-focused reports live in slash commands.
 

@@ -46,6 +46,8 @@ See [CONNECTORS.md](CONNECTORS.md) for the full tool and Resource reference, inc
 Saga templates that wrap multi-step workflows. Clients advertise them via `prompts/list`; invoke by name with optional arguments.
 
 - **`financing_round`** — primary financing round end-to-end: `create_deal` → set offer terms → add participants → `open_deal` (real emails) → `close_deal` → finalize allocations & payments → `add_deal_to_cap_table` (irreversible) → announcement post. Stops to confirm before each side-effecting write.
+- **`capital_call_cycle`** — single capital-call cycle: discover via fund Resources → `create_capital_call` (real financial event) → optional `create_capital_equalization` (heuristic: only when there's been a close since the last call) → LP notification post.
+- **`quarterly_lp_letter`** — quarterly LP letter: gather fund + commitment-holder + recent capital-event context → caller-provided portfolio updates (the saga doesn't auto-discover, since portfolio reads aren't in this persona) → structured `create_post` → `preview_post_email` → `publish_post`.
 
 ### Skills
 

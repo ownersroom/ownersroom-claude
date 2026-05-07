@@ -30,6 +30,13 @@ Writes that touch a room respect your per-room permissions automatically — Cla
 
 The server also exposes **read-only Resources** for passive context: enums (currencies, post-visibilities, day-count conventions, capitalization frequencies, capital-event kinds), identity (`me://`, `me://capabilities` for one-shot user + per-room capability matrix), rooms (`rooms://`, `room://{id}`, `room://{id}/capabilities`), per-room reads (share classes, shareholders, interest-rate schedules, fund, commitment holders, signing requests), and templated reads (`room://{id}/posts/{postId}`).
 
+### MCP Prompts
+
+Saga templates that wrap multi-step workflows. Clients advertise them via `prompts/list`; invoke by name with optional arguments.
+
+- **`capital_call_cycle`** — single capital-call cycle: discover via `room://{id}/fund` and `room://{id}/fund/commitment-holders` → `create_capital_call` (real financial event) → optional `create_capital_equalization` (heuristic: only when there's been a close since the last call) → LP notification post (`create_post` → optional `preview_post_email` → `publish_post`). Stops to confirm before issuing the call and before publishing.
+- **`quarterly_lp_letter`** — quarterly LP letter: gather fund + commitment-holder + recent capital-event context → caller-provided portfolio updates (the saga doesn't auto-discover — `list_portfolio_cases` is portfolio-persona only; the user is directed to a `ownersroom-portfolio` session if they want Claude to gather it) → structured `create_post` → `preview_post_email` → `publish_post`. Stops to confirm before publishing.
+
 ### Skills
 
 - **news-updates** — drafting, previewing, and publishing LP communications.

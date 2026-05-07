@@ -1,6 +1,6 @@
 {
   "name": "ownersroom-all",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "description": "Full OwnersRoom surface: cap table, options, portfolio, fund management, contacts, deals, document e-signature, and news. 83 MCP tools + 28 read-only Resources + saga Prompts, all skills, all slash commands. Renamed from `ownersroom` in 2.0.0; focused alternatives are `ownersroom-portfolio`, `ownersroom-captable`, `ownersroom-commitments`.",
   "author": {
     "name": "OwnersRoom",

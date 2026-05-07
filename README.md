@@ -97,6 +97,8 @@ The server also exposes **saga Prompts** — reusable templates that wrap multi-
 | Prompt | What it does | In plugins |
 |--------|-------------|-----------|
 | `financing_round` | Walks through a primary financing round end-to-end: deal creation → terms → participants → open (real emails) → close → finalize allocations & payments → bridge to cap table (irreversible) → announcement post. Stops to confirm before each side-effecting write. | `-all`, `-captable` |
+| `capital_call_cycle` | Runs a single capital-call cycle: discover via fund Resources → issue the call (real financial event) → optionally equalize when there's been a close since the last call → notify LPs. | `-all`, `-commitments` |
+| `quarterly_lp_letter` | Drafts a quarterly LP letter: gather fund + commitment-holder + recent capital activity → caller-provided portfolio updates → structured post → preview → publish. | `-all`, `-commitments` |
 
 ### Skills
 
