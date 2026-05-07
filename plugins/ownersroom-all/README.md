@@ -41,6 +41,12 @@ The server also exposes **28 read-only Resources** for passive context — enums
 
 See [CONNECTORS.md](CONNECTORS.md) for the full tool and Resource reference, including the structured-error envelope and the capability-planning model.
 
+### MCP Prompts
+
+Saga templates that wrap multi-step workflows. Clients advertise them via `prompts/list`; invoke by name with optional arguments.
+
+- **`financing_round`** — primary financing round end-to-end: `create_deal` → set offer terms → add participants → `open_deal` (real emails) → `close_deal` → finalize allocations & payments → `add_deal_to_cap_table` (irreversible) → announcement post. Stops to confirm before each side-effecting write.
+
 ### Skills
 
 - **captable-analysis** — ownership, share classes, dilution.

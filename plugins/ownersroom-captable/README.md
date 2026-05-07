@@ -31,6 +31,12 @@ Writes that touch a room respect your per-room permissions automatically — Cla
 
 The server also exposes **read-only Resources** for passive context: enums (currencies, post-visibilities, day-count conventions, capitalization frequencies, capital-event kinds), identity (`me://`, `me://capabilities` for one-shot user + per-room capability matrix), rooms (`rooms://`, `room://{id}`, `room://{id}/capabilities`), per-room reads (share classes, shareholders, option pools, option holders, interest-rate schedules, people, companies, deals, signing requests), and templated reads (`room://{id}/posts/{postId}`, `room://{id}/deals/{dealId}`, `room://{id}/people/{actorId}/vesting`).
 
+### MCP Prompts
+
+Saga templates that wrap multi-step workflows. Clients advertise them via `prompts/list`; invoke by name with optional arguments.
+
+- **`financing_round`** — primary financing round end-to-end: `create_deal` → set offer terms → add participants → `open_deal` (real emails) → `close_deal` → finalize allocations & payments → `add_deal_to_cap_table` (irreversible) → announcement post. Stops to confirm before each side-effecting write.
+
 ### Skills
 
 - **captable-analysis** — ownership percentages, share class distribution, dilution modeling.

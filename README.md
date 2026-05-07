@@ -90,6 +90,14 @@ Beyond the tools, the server exposes **28 read-only Resources** — passive cont
 
 Resources work alongside tools — they're for read-only context, not writes. See [CONNECTORS.md](plugins/ownersroom-all/CONNECTORS.md) for the full Resource catalog.
 
+### MCP Prompts
+
+The server also exposes **saga Prompts** — reusable templates that wrap multi-step workflows the LLM would otherwise have to assemble from prose hints. Clients advertise them via `prompts/list` and let you invoke them by name with optional arguments.
+
+| Prompt | What it does | In plugins |
+|--------|-------------|-----------|
+| `financing_round` | Walks through a primary financing round end-to-end: deal creation → terms → participants → open (real emails) → close → finalize allocations & payments → bridge to cap table (irreversible) → announcement post. Stops to confirm before each side-effecting write. | `-all`, `-captable` |
+
 ### Skills
 
 Skills activate automatically when Claude detects a relevant question — just ask naturally.
