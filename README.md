@@ -10,9 +10,9 @@ The marketplace ships four plugins. **Pick one** based on what you do — they a
 
 | Plugin | Tools | Best for |
 |---|---:|---|
-| **`ownersroom-all`** | 56 | Default. Full surface — pick this if you want everything. |
+| **`ownersroom-all`** | 64 | Default. Full surface — pick this if you want everything. |
 | **`ownersroom-portfolio`** | ~13 | Investor / shareholder — track your portfolio, holdings, vesting, news. |
-| **`ownersroom-captable`** | ~38 | Founder / CFO / cap-table admin — shares, options, employee equity, news. |
+| **`ownersroom-captable`** | ~46 | Founder / CFO / cap-table admin — shares, options, employee equity, contacts, news. |
 | **`ownersroom-commitments`** | ~22 | PE / VC GP — LP commitments, capital ops, LP letters. |
 
 ### Decision tree
@@ -86,7 +86,7 @@ See [CONNECTORS.md](plugins/ownersroom-all/CONNECTORS.md) for the full tool refe
 
 ### MCP Resources
 
-Beyond the tools, the server exposes **23 read-only Resources** — passive context Claude can browse without burning a tool call. Examples: `me://` (your profile), `me://capabilities` (your profile + every accessible room with its capability matrix, in one read), `enums://capital-event-kinds` (valid event types), `room://{id}/share-classes` (a room's share classes), `portfolio://summary` (your portfolio summary), `room://{id}/posts/{postId}` (a single news post). Each persona profile exposes a tailored subset; the kitchen-sink (`ownersroom-all`) shows all 23.
+Beyond the tools, the server exposes **25 read-only Resources** — passive context Claude can browse without burning a tool call. Examples: `me://` (your profile), `me://capabilities` (your profile + every accessible room with its capability matrix, in one read), `enums://capital-event-kinds` (valid event types), `room://{id}/share-classes` (a room's share classes), `room://{id}/people` (people in a room), `portfolio://summary` (your portfolio summary), `room://{id}/posts/{postId}` (a single news post). Each persona profile exposes a tailored subset; the kitchen-sink (`ownersroom-all`) shows all 25.
 
 Resources work alongside tools — they're for read-only context, not writes. See [CONNECTORS.md](plugins/ownersroom-all/CONNECTORS.md) for the full Resource catalog.
 

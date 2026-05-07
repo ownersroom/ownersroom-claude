@@ -2,7 +2,7 @@
 
 > **Experimental.** Internal prototype exploring AI-assisted workflows for equity data. Not a supported OwnersRoom product. Not intended for end users of OwnersRoom.
 
-A focused install for **investors** — track your portfolio, view holdings and vesting, read news from companies you've invested in. ~13 tools. Smaller token footprint than the full `ownersroom-all` plugin (~56 tools).
+A focused install for **investors** — track your portfolio, view holdings and vesting, read news from companies you've invested in. ~13 tools. Smaller token footprint than the full `ownersroom-all` plugin (~64 tools).
 
 ## Install
 
