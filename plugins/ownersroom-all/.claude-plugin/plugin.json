@@ -1,7 +1,7 @@
 {
   "name": "ownersroom-all",
-  "version": "2.4.0",
-  "description": "Full OwnersRoom surface: cap table, options, portfolio, fund management, contacts, and news. 64 MCP tools + 25 read-only Resources, all skills, all slash commands. Renamed from `ownersroom` in 2.0.0; focused alternatives are `ownersroom-portfolio`, `ownersroom-captable`, `ownersroom-commitments`.",
+  "version": "2.5.0",
+  "description": "Full OwnersRoom surface: cap table, options, portfolio, fund management, contacts, deals, and news. 78 MCP tools + 27 read-only Resources, all skills, all slash commands. Renamed from `ownersroom` in 2.0.0; focused alternatives are `ownersroom-portfolio`, `ownersroom-captable`, `ownersroom-commitments`.",
   "author": {
     "name": "OwnersRoom",
     "url": "https://www.ownersroom.com"
