@@ -37,7 +37,7 @@ Writes that touch a room respect your per-room permissions automatically. Every 
 
 ### MCP Resources
 
-The server also exposes **28 read-only Resources** for passive context — enums (currencies, capital-event kinds, …), identity (`me://`, `me://capabilities` for one-shot user + per-room capability matrix), rooms (`rooms://`, `room://{id}`, `room://{id}/capabilities`), per-room reference data (share classes, shareholders, option pools, people, companies, deals, signing requests, …), templated reads (`room://{id}/posts/{postId}`, `room://{id}/deals/{dealId}`, `room://{id}/people/{actorId}/vesting`), and portfolio (`portfolio://summary`, `portfolio://holdings`, …).
+The server also exposes **28 read-only Resources** for passive context — enums (currencies, capital-event kinds, …), identity (`me://`, `me://capabilities` for one-shot user + per-room capability matrix), rooms (`rooms://`, `room://{id}`, `room://{id}/capabilities`), per-room reference data (share classes, shareholders, option pools, people, companies, deals, signing requests, …), templated reads (`room://{id}/posts/{postId}`, `room://{id}/deals/{dealId}`, `room://{id}/people/{actorId}/vesting`), and portfolio (`portfolio://summary`, `portfolio://holdings`, …). Five paginated Resources (`option-holders`, `commitment-holders`, `people`, `companies`, `signing-requests`) support forward-only cursor pagination via `{?after}` — re-read with `?after=<endCursor>` from the previous response's `pageInfo` to advance.
 
 See [CONNECTORS.md](CONNECTORS.md) for the full tool and Resource reference, including the structured-error envelope and the capability-planning model.
 

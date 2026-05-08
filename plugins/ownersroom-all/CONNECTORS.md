@@ -186,17 +186,17 @@ Each persona profile exposes a tailored subset; the kitchen-sink (`ownersroom-al
 | URI | Profiles |
 |-----|----------|
 | `room://{id}/share-classes` | every profile |
-| `room://{id}/shareholders` (first page) | captable + portfolio + all |
+| `room://{id}/shareholders` (first page only — backend not yet paginated) | captable + portfolio + all |
 | `room://{id}/option-pools` | captable + all |
-| `room://{id}/option-holders` (first page) | captable + all |
+| `room://{id}/option-holders{?after}` (paginated, default 50/page) | captable + all |
 | `room://{id}/interest-rate-schedules` | captable + commitments + all |
-| `room://{id}/people` (first page) | captable + all |
-| `room://{id}/companies` (first page) | captable + all |
+| `room://{id}/people{?after}` (paginated, default 100/page) | captable + all |
+| `room://{id}/companies{?after}` (paginated, default 100/page) | captable + all |
 | `room://{id}/deals` | captable + all |
 | `room://{id}/deals/{dealId}` | captable + all |
-| `room://{id}/signing-requests` (first 50) | captable + commitments + all |
+| `room://{id}/signing-requests{?after}` (paginated, default 50/page) | captable + commitments + all |
 | `room://{id}/fund` | commitments + all |
-| `room://{id}/fund/commitment-holders` (first page) | commitments + all |
+| `room://{id}/fund/commitment-holders{?after}` (paginated, default 100/page) | commitments + all |
 
 ### Per-room templated reads
 
@@ -214,7 +214,7 @@ Each persona profile exposes a tailored subset; the kitchen-sink (`ownersroom-al
 | `portfolio://holdings` | portfolio + all |
 | `portfolio://cases/{caseIdentifier}/vesting` | portfolio + all |
 
-**Pagination on Resources**: `shareholders`, `option-holders`, `commitment-holders`, `people`, and `companies` Resources return the first page only (default 100). Use the corresponding `list_*` tool when more pages are needed.
+**Pagination on Resources**: five Resources support forward-only cursor pagination via the RFC 6570 `{?after}` query-expansion template variable — `option-holders`, `commitment-holders`, `people`, `companies`, and `signing-requests`. To fetch the next page, re-read the URI with `?after=<endCursor>` from the previous response's `pageInfo`. `pageInfo.hasNextPage` indicates whether more pages exist. `shareholders` is **not** paginated — the underlying GraphQL field doesn't accept pagination args (tracked separately as a backend follow-up). Users wanting filtered pagination still fall back to the corresponding `list_*` tool.
 
 **Optional template parameters dropped**: the vesting Resources don't accept the `poolId` filter that the underlying tools accept. Use `get_vesting_history` or `get_portfolio_vesting` when filtering by pool.
 

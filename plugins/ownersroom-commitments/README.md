@@ -28,7 +28,7 @@ Writes that touch a room respect your per-room permissions automatically — Cla
 
 ### MCP Resources
 
-The server also exposes **read-only Resources** for passive context: enums (currencies, post-visibilities, day-count conventions, capitalization frequencies, capital-event kinds), identity (`me://`, `me://capabilities` for one-shot user + per-room capability matrix), rooms (`rooms://`, `room://{id}`, `room://{id}/capabilities`), per-room reads (share classes, shareholders, interest-rate schedules, fund, commitment holders, signing requests), and templated reads (`room://{id}/posts/{postId}`).
+The server also exposes **read-only Resources** for passive context: enums (currencies, post-visibilities, day-count conventions, capitalization frequencies, capital-event kinds), identity (`me://`, `me://capabilities` for one-shot user + per-room capability matrix), rooms (`rooms://`, `room://{id}`, `room://{id}/capabilities`), per-room reads (share classes, shareholders, interest-rate schedules, fund, commitment holders, signing requests), and templated reads (`room://{id}/posts/{postId}`). Two paginated Resources (`commitment-holders`, `signing-requests`) support forward-only cursor pagination via `{?after}` — re-read with `?after=<endCursor>` from the previous response's `pageInfo` to advance.
 
 ### MCP Prompts
 
