@@ -25,7 +25,7 @@ A focused install for **company admins** — manage your company's capital struc
 - **Document e-signature** — initiate / cancel / prolong signing requests against existing documents, send reminder emails to outstanding signatories, update a signatory entry. (No file uploads — references documents by path.)
 - **News** — read, draft, edit, preview, publish, delete company posts.
 
-Writes that touch a room respect your per-room permissions automatically — Claude is told exactly which permission is missing if a write isn't allowed. Every write tool exposes a typed JSON-Schema for its parameters.
+Writes that touch a room respect your per-room permissions automatically — Claude is told exactly which permission is missing if a write isn't allowed. Every write tool exposes a typed JSON-Schema for its parameters. Five side-effecting writes (`open_deal`, `add_deal_to_cap_table`, `publish_post`, `create_signing_request`, `remind_signatories`) ask your client to confirm before firing — Claude Desktop and Claude Code surface a confirmation UI; clients without sampling support fall through to advisory-only mode (existing behaviour).
 
 ### MCP Resources
 

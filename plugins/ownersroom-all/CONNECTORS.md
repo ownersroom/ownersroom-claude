@@ -148,6 +148,26 @@ File attachments are not supported in `params` (the GraphQL `Upload!` scalar can
 
 Every write tool above declares an explicit JSON-Schema for its `params` field — no more opaque `params: object`. Clients with structured-output support can generate type-safe call sites; LLMs see the field shape directly without parsing description prose. Reusable value-object schemas (`MonetaryInput`, `ActorIdInput`, ledger-entry shapes per aggregate, `ShareClassInput`, `OptionTypeInput`, `PostInput`, etc.) appear in multiple tools and are consistent across them.
 
+### Sampling-based confirmation gates on side-effecting writes
+
+Seven tools fire an MCP `sampling/createMessage` request to the client before issuing their GraphQL mutation:
+
+| Tool | Why gated |
+|---|---|
+| `open_deal` | sends real offer emails to participants (skipped when `doNotSendOffers=true`) |
+| `add_deal_to_cap_table` | issues real shares as a capital event; **not reversible** |
+| `create_capital_call` | real LP-facing financial event |
+| `create_capital_distribution` | real LP-facing financial event |
+| `publish_post` | becomes visible to room members + emails recipients |
+| `create_signing_request` | sends real signatory emails |
+| `remind_signatories` | reminder emails to outstanding signatories |
+
+The sampling request asks the client to APPROVE or DENY the action, with a one-line summary of what's about to happen. Clients that surface sampling to the user (Claude Desktop, Claude Code) get a confirmation UI; clients that auto-handle sampling with their LLM get an autonomous checkpoint.
+
+**Fall-through for clients without sampling.** If the client doesn't declare the `sampling` capability, or the sampling request fails for any reason (transport error, timeout), the tool falls through to today's advisory-only behaviour. No breakage for clients that don't support sampling — they get the same UX as before, with the saga-Prompt prose ("**Stop and confirm with the user before this step.**") as the only stop signal.
+
+**On denial, tools return a structured `user_denied` envelope** so the LLM can ask the user to clarify or pick a different path, instead of treating it as a transport failure.
+
 ## Available Resources
 
 The MCP server also exposes **28 read-only Resources** — passive context the LLM can browse without burning a tool call. Resource-aware clients (Claude Code, Claude Desktop, Gemini CLI) auto-discover these via `resources/list` and `resources/templates/list`. Resources don't replace tools; tools still take parameters and perform writes.
