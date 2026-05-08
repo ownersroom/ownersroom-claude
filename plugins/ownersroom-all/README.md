@@ -33,7 +33,7 @@ If you previously installed `ownersroom@ownersroom`, uninstall it and re-install
 - **Portfolio** — summary, per-company breakdown, holdings, transaction history, vesting per case; create / update / delete portfolio cases and assets; update estimated values.
 - **News** — read, draft, edit, preview, publish, delete posts.
 
-Writes that touch a room respect your per-room permissions automatically. Every write tool exposes a typed JSON-Schema for its parameters.
+Writes that touch a room respect your per-room permissions automatically. Every write tool exposes a typed JSON-Schema for its parameters. Seven side-effecting writes (`open_deal`, `add_deal_to_cap_table`, `create_capital_call`, `create_capital_distribution`, `publish_post`, `create_signing_request`, `remind_signatories`) ask your client to confirm before firing — Claude Desktop and Claude Code surface a confirmation UI; clients without sampling support fall through to advisory-only mode (existing behaviour).
 
 ### MCP Resources
 

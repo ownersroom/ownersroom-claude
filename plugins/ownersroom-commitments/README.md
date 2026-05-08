@@ -24,7 +24,7 @@ A focused install for **PE / VC fund managers (GPs)** — manage LP commitments,
 - **Document e-signature** — initiate / cancel / prolong signing requests against existing documents (subscription agreements, side letters, etc.); send reminders; update a signatory entry. (No file uploads — references documents by path.)
 - **News (full)** — read, draft, edit, preview, publish, delete LP letters and announcements.
 
-Writes that touch a room respect your per-room permissions automatically — Claude is told exactly which permission is missing if a write isn't allowed. Every write tool exposes a typed JSON-Schema for its parameters.
+Writes that touch a room respect your per-room permissions automatically — Claude is told exactly which permission is missing if a write isn't allowed. Every write tool exposes a typed JSON-Schema for its parameters. Five side-effecting writes (`create_capital_call`, `create_capital_distribution`, `publish_post`, `create_signing_request`, `remind_signatories`) ask your client to confirm before firing — Claude Desktop and Claude Code surface a confirmation UI; clients without sampling support fall through to advisory-only mode (existing behaviour).
 
 ### MCP Resources
 
